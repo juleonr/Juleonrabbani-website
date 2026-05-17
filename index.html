@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juleon Rabbani, DrPH — Biostatistician & Public Health Researcher</title>
     <meta name="google-site-verification" content="mBqu66MQobnJBzm6WjYSnwPoJe7HHxpqOhPctWNJLh8">
+    <meta name="google-site-verification" content="LVyXXWKteZ8ocOACMmAk57d8QT4BHuA2Y28G4e5H1hw">
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#141210">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,32 +84,6 @@
             padding: 9rem 3rem 2.5rem;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4rem;
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .hero-photo {
-            flex-shrink: 0;
-            width: 260px;
-        }
-
-        .hero-photo img {
-            width: 100%;
-            aspect-ratio: 3/4;
-            object-fit: cover;
-            object-position: center top;
-            border: 1px solid var(--border);
-            filter: grayscale(15%);
-            animation: fadeUp 1s ease 0.8s both;
         }
 
         .hero::before {
@@ -605,8 +580,6 @@
             .nav-links { gap: 1.5rem; }
             section { padding: 4rem 1.5rem; }
             .hero { padding: 0 1.5rem 4rem; }
-            .hero-inner { flex-direction: column-reverse; gap: 2rem; }
-            .hero-photo { width: 160px; align-self: flex-start; }
             .hero::after { display: none; }
             .about-grid,
             .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -639,18 +612,11 @@
 
     <!-- ══ HERO ══ -->
     <section id="hero" class="hero">
-        <div class="hero-inner">
-            <div class="hero-text">
-                <div class="hero-eyebrow">Biostatistician · Epidemiologist · Public Health Leader</div>
-                <h1 class="hero-name">Juleon<br><em>Rabbani</em></h1>
-                <p class="hero-tagline">
-                    Director of the <a href="https://biostatistical-consulting-unit.kaiserpermanente.org" target="_blank" rel="noopener" class="inline-link">Biostatistical Consulting Unit</a> at Kaiser Permanente Northern California — advancing clinical discovery across every stage of clinician training and practice.
-                </p>
-            </div>
-            <div class="hero-photo">
-                <img src="headshot.webp" alt="Juleon Rabbani, DrPH">
-            </div>
-        </div>
+        <div class="hero-eyebrow">Biostatistician · Epidemiologist · Public Health Leader</div>
+        <h1 class="hero-name">Juleon<br><em>Rabbani</em></h1>
+        <p class="hero-tagline">
+            Director of the <a href="https://biostatistical-consulting-unit.kaiserpermanente.org" target="_blank" rel="noopener" class="inline-link">Biostatistical Consulting Unit</a> at Kaiser Permanente Northern California — advancing clinical discovery across every stage of clinician training and practice.
+        </p>
         <div class="hero-scroll">Scroll</div>
     </section>
 
