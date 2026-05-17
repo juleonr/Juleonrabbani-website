@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juleon Rabbani, DrPH — Biostatistician & Public Health Researcher</title>
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#141210">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            color-scheme: dark;
+            --bg: #141210;
+            --bg-alt: #1c1916;
+            --text: #ede8df;
+            --text-muted: #9a9088;
+            --accent: #c4895a;
+            --accent-light: #d4a878;
+            --border: #2e2924;
+            --white: #1c1916;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(20, 18, 16, 0.93);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 3rem;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+        .nav-links a {
+            font-size: 0.74rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 3rem 5.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 80% 15%, rgba(212,168,120,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 60% at 5% 85%, rgba(196,137,90,0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* faint vertical rule decoration */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 22%;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1.75rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(4.5rem, 11vw, 10rem);
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: -0.01em;
+            color: var(--text);
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.4s forwards;
+        }
+
+        .hero-name em { font-style: italic; color: var(--accent); }
+
+        .hero-tagline {
+            margin-top: 2.25rem;
+            max-width: 500px;
+            font-size: 1.0rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.6s forwards;
+        }
+
+        .hero-credentials {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.8s forwards;
+        }
+
+        .credential-pill {
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.71rem;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            background: var(--white);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            right: 3rem;
+            writing-mode: vertical-rl;
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0;
+            animation: fadeIn 1s ease 1.2s forwards;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hero-scroll::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 44px;
+            background: linear-gradient(to bottom, var(--accent-light), transparent);
+        }
+
+        /* ── SHARED SECTION STYLES ── */
+        section { padding: 6.5rem 3rem; }
+        section:nth-child(even) { background: var(--white); }
+
+        .container { max-width: 960px; margin: 0 auto; }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            color: var(--accent-light);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--text);
+        }
+
+        /* ── ABOUT ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1.02rem;
+            line-height: 1.82;
+            color: var(--text);
+            margin-bottom: 1.25rem;
+        }
+
+        .about-text p:last-child { margin-bottom: 0; }
+
+        .about-sidebar {
+            border-left: 1px solid var(--border);
+            padding-left: 2.5rem;
+        }
+
+        .sidebar-block { margin-bottom: 1.75rem; }
+        .sidebar-block:last-child { margin-bottom: 0; }
+
+        .sidebar-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .sidebar-value {
+            font-family: var(--font-display);
+            font-size: 1.0rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ── CV ── */
+        .cv-section-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1.75rem;
+        }
+
+        .cv-grid { display: block; }
+
+        .cv-block {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+        }
+
+        .cv-year-col {
+            width: 160px;
+            flex-shrink: 0;
+            padding: 0.15rem 2rem 2.5rem 0;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .cv-year {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--accent-light);
+        }
+
+        .cv-content-col {
+            flex: 1;
+            padding: 0 0 2.5rem 2.5rem;
+            border-left: 1px solid var(--border);
+            position: relative;
+        }
+
+        .cv-content-col::before {
+            content: '';
+            position: absolute;
+            left: -4.5px;
+            top: 9px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            border: 2px solid var(--bg);
+        }
+
+        .cv-block:last-child .cv-content-col { padding-bottom: 0; }
+
+        .cv-role {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .cv-org {
+            font-size: 0.82rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            margin: 0.25rem 0 0.6rem;
+        }
+
+        .cv-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+        /* ── RESEARCH ── */
+        .pubs-list { display: flex; flex-direction: column; }
+
+        .pub-item {
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 0 2rem;
+            align-items: start;
+        }
+
+        .pub-item:first-child { border-top: 1px solid var(--border); }
+
+        .pub-tag {
+            font-size: 0.66rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.55rem;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            text-align: center;
+            background: var(--bg-alt);
+            margin-top: 0.25rem;
+        }
+
+        .pub-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 0.35rem;
+        }
+
+        .pub-meta { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+        .pub-meta em { font-style: italic; color: var(--accent); }
+
+        .inline-link {
+            color: var(--accent-light);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .inline-link:hover {
+            color: var(--accent);
+            border-color: var(--accent-light);
+        }
+
+        .pub-title a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .pub-title a:hover {
+            color: var(--accent);
+            border-color: var(--accent-light);
+        }
+
+        .research-areas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+        }
+
+        .research-area {
+            padding: 1.75rem;
+            border: 1px solid var(--border);
+            background: var(--bg-alt);
+            position: relative;
+        }
+
+        .research-area::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(to right, var(--accent-light), transparent);
+        }
+
+        .research-area-title {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            color: var(--text);
+        }
+
+        .research-area-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* ── BSCU ── */
+        .bscu-intro {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.65;
+            color: var(--text);
+            max-width: 680px;
+            margin-bottom: 3rem;
+            padding-bottom: 2.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bscu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .bscu-card {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            position: relative;
+        }
+
+        .bscu-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: var(--accent-light);
+        }
+
+        .bscu-card-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.7rem;
+        }
+
+        .bscu-card-text { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; }
+
+        .bscu-partners { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+        .partner-badge {
+            padding: 0.45rem 1.1rem;
+            border: 1px solid var(--accent-light);
+            font-size: 0.76rem;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+        }
+
+        /* ── CONTACT ── */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-intro {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1.65;
+            margin-bottom: 2.25rem;
+            color: var(--text);
+        }
+
+        .contact-links { display: flex; flex-direction: column; }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.88rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s;
+        }
+
+        .contact-link:first-child { border-top: 1px solid var(--border); }
+        .contact-link:hover { color: var(--accent); }
+
+        .contact-link-label {
+            font-size: 0.66rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        .contact-affiliation {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            background: var(--bg-alt);
+            position: relative;
+        }
+
+        .contact-affiliation::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(to right, var(--accent), transparent);
+        }
+
+        .affiliation-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        .affiliation-org {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 0.9rem;
+            letter-spacing: 0.04em;
+        }
+
+        .affiliation-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 1.75rem 3rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg);
+        }
+
+        .footer-name {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .footer-copy { font-size: 0.73rem; color: var(--text-muted); opacity: 0.55; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 800px) {
+            nav { padding: 0 1.5rem; }
+            .nav-links { gap: 1.5rem; }
+            section { padding: 4rem 1.5rem; }
+            .hero { padding: 0 1.5rem 4rem; }
+            .hero::after { display: none; }
+            .about-grid,
+            .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+            .about-sidebar {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid var(--border);
+                padding-top: 2rem;
+            }
+            .cv-year-col { width: 70px; padding-right: 1rem; }
+            .research-areas { grid-template-columns: 1fr; }
+            .bscu-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#hero" class="nav-brand">Juleon Rabbani</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#cv">CV</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#bscu">BSCU</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ══ HERO ══ -->
+    <section id="hero" class="hero">
+        <div class="hero-eyebrow">Biostatistician · Epidemiologist · Public Health Leader</div>
+        <h1 class="hero-name">Juleon<br><em>Rabbani</em></h1>
+        <p class="hero-tagline">
+            Director of the <a href="https://biostatistical-consulting-unit.kaiserpermanente.org" target="_blank" rel="noopener" class="inline-link">Biostatistical Consulting Unit</a> at Kaiser Permanente Northern California — advancing clinical discovery across every stage of training and practice.
+        </p>
+        <div class="hero-credentials">
+            <span class="credential-pill">DrPH, Epidemiology</span>
+            <span class="credential-pill">MPH, Global Health Leadership</span>
+            <span class="credential-pill">Director · Division of Research</span>
+            <span class="credential-pill">Research Scientist, Biostatistics</span>
+        </div>
+        <div class="hero-scroll">Scroll</div>
+    </section>
+
+    <!-- ══ ABOUT ══ -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">01</span>
+                <h2 class="section-title">About</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>
+                        Juleon Rabbani, DrPH, MPH is the Director of the <a href="https://biostatistical-consulting-unit.kaiserpermanente.org" target="_blank" rel="noopener" class="inline-link">Biostatistical Consulting Unit (BSCU)</a> and a Research Scientist in Biostatistics within the Kaiser Permanente Division of Research (DOR) in Northern California. Since 2023, he has directed a research portfolio exceeding $16 million, leading a team of more than 30 biostatisticians, analysts, and program staff.
+                    </p>
+                    <p>
+                        His team supports 400+ active clinical research projects and generates over 150 peer-reviewed publications and presentations each year — work that advances Kaiser Permanente's learning health system, supports GME accreditation, strengthens community health commitments, and builds evidence across clinical specialties. He serves as a member of the KPNC Research Executive Council.
+                    </p>
+                    <p>
+                        As a principal and co-investigator, Dr. Rabbani has led institutionally funded studies spanning women's health, emergency medicine, psychiatry, ophthalmology, cancer epidemiology, advance care planning, and population health. He completed his public health training with the U.S. Department of Defense and Public Health Service in Bethesda, MD, and previously directed research activities for multiple physician training programs at the Kaiser Permanente Vallejo Medical Center, including founding the KP Public Health Research Internship Program in 2017.
+                    </p>
+                </div>
+                <div class="about-sidebar reveal">
+                    <div class="sidebar-block">
+                        <div class="sidebar-label">Current Title</div>
+                        <div class="sidebar-value"><a href="https://biostatistical-consulting-unit.kaiserpermanente.org" target="_blank" rel="noopener" class="inline-link">Director, Biostatistical Consulting Unit</a><br>Research Scientist, Biostatistics</div>
+                    </div>
+                    <div class="sidebar-block">
+                        <div class="sidebar-label">Institution</div>
+                        <div class="sidebar-value">Kaiser Permanente Northern California · Division of Research</div>
+                    </div>
+                    <div class="sidebar-block">
+                        <div class="sidebar-label">Education</div>
+                        <div class="sidebar-value">DrPH, Epidemiology<br>MPH, Global Health Leadership</div>
+                    </div>
+                    <div class="sidebar-block">
+                        <div class="sidebar-label">Institutional Partners</div>
+                        <div class="sidebar-value">TPMG · GME · Community Health · KPSOM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ CV ══ -->
+    <section id="cv">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Curriculum Vitae</h2>
+            </div>
+
+            <div class="cv-section-label reveal">Experience</div>
+            <div class="cv-grid">
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2023–Present</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Director, Biostatistical Consulting Unit & Research Scientist, Biostatistics</div>
+                        <div class="cv-org">Kaiser Permanente Division of Research · Pleasanton, CA</div>
+                        <div class="cv-desc">Directs a research portfolio exceeding $16M with a team of 30+ biostatisticians, analysts, and program staff. Supports 400+ active clinical research projects and generates 150+ peer-reviewed publications and presentations annually across GME, TPMG, Community Health, KPSOM, and the KP Scholars Academy. Member, KPNC Research Executive Council.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2023–Present</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Research Faculty, Internal Medicine Residency Program</div>
+                        <div class="cv-org">Kaiser Permanente Santa Clara · Santa Clara, CA</div>
+                        <div class="cv-desc">Provides biostatistical mentorship and research faculty support to internal medicine residents.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2020–2023</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Assistant Director, Biostatistical Consulting Unit</div>
+                        <div class="cv-org">Kaiser Permanente Division of Research · Oakland, CA</div>
+                        <div class="cv-desc">Mentored and collaborated with KPNC clinicians across the region to develop, implement, and publish applied research and quality improvement studies. Served as biostatistical reviewer on the KPNC Central Research Committee.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2019–2020</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Group Leader Consultant, Biostatistical Consulting Unit</div>
+                        <div class="cv-org">Kaiser Permanente Division of Research · Oakland, CA</div>
+                        <div class="cv-desc">Led a team of consultants providing biostatistical support to KPNC clinical investigators.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2017–2019</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Founding Program Director, Public Health Research Internship Program</div>
+                        <div class="cv-org">Kaiser Permanente Graduate Medical Education · Vallejo, CA</div>
+                        <div class="cv-desc">Founded and directed a program integrating graduate public health and policy students into medical centers to create data-oriented projects with clinical faculty, residents, and health administrators. Directly supervised 12 public health interns.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2016–2019</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Research Director & Core Research Faculty</div>
+                        <div class="cv-org">Kaiser Permanente Napa-Solano GME · Vallejo, CA</div>
+                        <div class="cv-desc">Directed the Medical Scholars Program and served as Core Research Faculty for the Napa-Solano Family Medicine Residency Program. Directed research activities across family medicine, podiatric surgery, and community medicine training programs.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2013–2015</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Research Associate</div>
+                        <div class="cv-org">Advance Health Solutions, LLC · La Jolla, CA</div>
+                        <div class="cv-desc">Provided targeted research activities on health topics including survey design, statistical analysis plans, health assessments, and literature review.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2009–2010</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Research Adjunct Instructor</div>
+                        <div class="cv-org">Division of Occupational Science & Occupational Therapy, USC · Los Angeles, CA</div>
+                        <div class="cv-desc">Taught research methods to graduate students in occupational science and therapy.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2009</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Field Investigator</div>
+                        <div class="cv-org">Graduate School of Public Health, Yonsei University · Seoul, South Korea</div>
+                        <div class="cv-desc">Conducted field-based public health research in partnership with Yonsei University's School of Public Health.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2008</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Elective Fellow</div>
+                        <div class="cv-org">International Centre for Diarrheal Disease Research (ICDDR,B) · Dhaka, Bangladesh</div>
+                        <div class="cv-desc">Global health fellowship focusing on diarrheal disease epidemiology and public health interventions in a low-resource setting.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-section-label reveal" style="margin-top: 2.5rem;">Education</div>
+            <div class="cv-grid">
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2015</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">DrPH — Epidemiology & Social/Behavioral Sciences</div>
+                        <div class="cv-org">Uniformed Services University, Dept. of Preventive Medicine & Biostatistics, Walter Reed National Military Medical Center, U.S. Dept. of Defense · Bethesda, MD</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2008</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">MPH — Global Health Leadership</div>
+                        <div class="cv-org">University of Southern California, Dept. of Preventive Medicine, Keck School of Medicine · Los Angeles, CA</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2007</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">BA — Health Care in a Social Context</div>
+                        <div class="cv-org">Whittier College · Whittier, CA</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2006</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Certification — Medical Practice and Policy</div>
+                        <div class="cv-org">Denmark's International Study (DIS) Program, University of Copenhagen · Copenhagen, Denmark</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-section-label reveal" style="margin-top: 2.5rem;">Honors & Awards</div>
+            <div class="cv-grid">
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2018</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Program Director's Award</div>
+                        <div class="cv-org">Napa-Solano Family Medicine Residency Program, Kaiser Permanente Northern California</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2017</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">Distinguished Recognition for Exceptional Contributions</div>
+                        <div class="cv-org">Napa-Solano Family Medicine Residency Program, Kaiser Permanente Northern California</div>
+                        <div class="cv-desc">Recognized for founding contributions to the Napa-Solano Family Medicine Residency Program.</div>
+                    </div>
+                </div>
+                <div class="cv-block reveal">
+                    <div class="cv-year-col"><span class="cv-year">2014</span></div>
+                    <div class="cv-content-col">
+                        <div class="cv-role">U.S. Global Youth Ambassador</div>
+                        <div class="cv-org">U.S. National Park Service and National Park Foundation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ RESEARCH ══ -->
+    <section id="research">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Research & Publications</h2>
+            </div>
+
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Journal<br>Article</div>
+                    <div class="pub-details">
+                        <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41854577/" target="_blank" rel="noopener">Patterns of Intramuscular Chemical Sedation Use for Patients Receiving a Mental Health Consultation While in the Emergency Department ↗</a></div>
+                        <div class="pub-meta">Lippert SC, Xu RH, Tucker LS, DiLena DD, Rauchwerger AS, <strong>Rabbani J</strong>, Kene MV · <em>Annals of Emergency Medicine</em> · 2026</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Journal<br>Article</div>
+                    <div class="pub-details">
+                        <div class="pub-title"><a href="https://www.whijournal.com/article/S1049-3867(25)00112-4/fulltext" target="_blank" rel="noopener">Incidence of Ectopic Pregnancy and Diagnostic Accuracy of Ectopic Pregnancy Screening Criteria Among People Seeking Versus Not Seeking Abortion: A Retrospective Case-Control Study ↗</a></div>
+                        <div class="pub-meta">Biggs MA, Armstrong MA, Tucker LY, Kaller S, <strong>Rabbani J</strong>, Lee JW, Chillemi G, Grossman D · <em>Women's Health Issues</em> · 2025</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Journal<br>Article</div>
+                    <div class="pub-details">
+                        <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/40449643/" target="_blank" rel="noopener">Incidence and Predictors of Remission of Childhood Uveitis in a Large Community Cohort ↗</a></div>
+                        <div class="pub-meta">Qian Y, Xu RH, <strong>Rabbani JW</strong>, Tucker LY · <em>American Journal of Ophthalmology</em> · 2025</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Journal<br>Article</div>
+                    <div class="pub-details">
+                        <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/33280079/" target="_blank" rel="noopener">The Association of Spanish Language Preference with Advance Directive Completion ↗</a></div>
+                        <div class="pub-meta">Gonzalez R, Lyon L, <strong>Rabbani J</strong>, Conell C, Postlethwaite D, Spaulding M, Mason M · <em>Journal of the American Geriatrics Society</em> · 2021; 69:122–128</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Conference<br>Abstract</div>
+                    <div class="pub-details">
+                        <div class="pub-title">Incidence and Predictors of Remission of Childhood Uveitis in a Northern California Cohort</div>
+                        <div class="pub-meta">Qian Y, Xu RH, Tucker LY, <strong>Rabbani J</strong> · <em>Association for Research in Vision and Ophthalmology (ARVO) Annual Meeting</em> · 2024</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Conference<br>Abstract</div>
+                    <div class="pub-details">
+                        <div class="pub-title">Patterns of Chemical Restraint Use for ED Patients with Acute Mental Health Distress</div>
+                        <div class="pub-meta">Lippert S, Xu RH, Tucker LY, <strong>Rabbani J</strong>, Rauchwerger AS, Kene MV · <em>Annals of Emergency Medicine</em> · 2023; 82(4S1) [Abstract 245]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Conference<br>Abstract</div>
+                    <div class="pub-details">
+                        <div class="pub-title">Incidence and Predictors of Remission of Childhood Uveitis in a Large Community Cohort</div>
+                        <div class="pub-meta">Qian Y, Xu RH, <strong>Rabbani J</strong>, Tucker LY · <em>American Academy of Ophthalmology Annual Conference</em> · 2023</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Conference<br>Abstract</div>
+                    <div class="pub-details">
+                        <div class="pub-title">Examining Racial Disparities in Male Breast Cancer</div>
+                        <div class="pub-meta">Linehan E, Samant N, <strong>Rabbani J</strong> · <em>American Society of Clinical Oncology (ASCO) Annual Conference</em> · 2021</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Presentation</div>
+                    <div class="pub-details">
+                        <div class="pub-title">The Public Health Research Internship Program: An Innovative Approach to Increasing and Diversifying Scholarly Activity in Graduate Medical Education</div>
+                        <div class="pub-meta"><strong>Rabbani J</strong>, Gonzalez R, Stecker T, et al. · <em>Jonathan Rodnick Family & Community Medicine Colloquium, UCSF</em> · 2019</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Presentation</div>
+                    <div class="pub-details">
+                        <div class="pub-title"><a href="https://www.esri.com/content/dam/esrisites/en-us/media/pdf/altering-course-of-disease-surveillance-govloop-brochure.pdf" target="_blank" rel="noopener">Kaiser Permanente and Diabetes Mapping — Altering the Course of Disease Surveillance: Connecting Cause and Effect to Location ↗</a></div>
+                        <div class="pub-meta"><strong>Rabbani J</strong>, Gonzalez R · <em>GovLoop & ESRI</em> · 2019</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-tag">Presentation</div>
+                    <div class="pub-details">
+                        <div class="pub-title">Utilizing Spatial Epidemiology for Quality Improvement Projects in Applied Health Care Settings</div>
+                        <div class="pub-meta"><strong>Rabbani J</strong>, Gonzalez R, Symkowick M, et al. · <em>American Public Health Association Annual Meeting, Health Informatics Information Technology Section</em> · San Diego, CA · 2018</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-areas">
+                <div class="research-area reveal">
+                    <div class="research-area-title">Biostatistics & Study Design</div>
+                    <div class="research-area-desc">Consulting on clinical trial design, observational studies, regression modeling, and statistical analysis for researchers across clinical specialties.</div>
+                </div>
+                <div class="research-area reveal">
+                    <div class="research-area-title">Epidemiology & Population Health</div>
+                    <div class="research-area-desc">Applied epidemiological methods in health services research, post-operative outcomes, and chronic disease surveillance within integrated health systems.</div>
+                </div>
+                <div class="research-area reveal">
+                    <div class="research-area-title">Research Capacity Building</div>
+                    <div class="research-area-desc">Infrastructure development for GME scholarly activity, mentorship frameworks, and institutional research support programs for trainees and faculty.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ BSCU ══ -->
+    <section id="bscu">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Biostatistical Consulting Unit</h2>
+            </div>
+
+            <p class="bscu-intro reveal">
+                The <a href="https://biostatistical-consulting-unit.kaiserpermanente.org" target="_blank" rel="noopener" class="inline-link">BSCU</a> at Kaiser Permanente Northern California supports the full continuum of clinical scholarship — from medical students completing their first research project to independent attending physicians advancing their specialty.
+            </p>
+
+            <div class="bscu-grid">
+                <div class="bscu-card reveal">
+                    <div class="bscu-card-title">GME Trainee Support</div>
+                    <div class="bscu-card-text">Embedded biostatistical consultation for residents and fellows across KPNC GME programs. Supports scholarly project design, data analysis, manuscript preparation, and conference presentation.</div>
+                </div>
+                <div class="bscu-card reveal">
+                    <div class="bscu-card-title">Medical Student Research</div>
+                    <div class="bscu-card-text">Consultative and mentorship support for KPSOM students and visiting medical students pursuing clinical and health services research under KPNC physician faculty.</div>
+                </div>
+                <div class="bscu-card reveal">
+                    <div class="bscu-card-title">Attending Physician Consulting</div>
+                    <div class="bscu-card-text">Full-service biostatistical partnership for TPMG attending physicians — from research question formulation through submission-ready analyses and publication support.</div>
+                </div>
+                <div class="bscu-card reveal">
+                    <div class="bscu-card-title">Community Health & TPMG Initiatives</div>
+                    <div class="bscu-card-text">Collaborative research support for Community Health programs and TPMG quality and outcomes work, with a focus on health equity, population-level interventions, and program evaluation.</div>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <div class="sidebar-label" style="margin-bottom: 0.85rem;">Institutional Partners</div>
+                <div class="bscu-partners">
+                    <span class="partner-badge">TPMG</span>
+                    <span class="partner-badge">GME</span>
+                    <span class="partner-badge">Community Health</span>
+                    <span class="partner-badge">KPSOM</span>
+                    <span class="partner-badge">Division of Research</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ CONTACT ══ -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Contact</h2>
+            </div>
+            <div class="contact-layout">
+                <div class="reveal">
+                    <p class="contact-intro">
+                        Interested in consulting, collaboration, or connecting about research and scholarship?
+                    </p>
+                    <div class="contact-links">
+                        <a href="https://linkedin.com/in/juleonrabbani" target="_blank" class="contact-link">
+                            <span class="contact-link-label">LinkedIn</span>
+                            linkedin.com/in/juleonrabbani
+                        </a>
+                        <a href="#" class="contact-link">
+                            <span class="contact-link-label">Institution</span>
+                            Kaiser Permanente Northern California
+                        </a>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="contact-affiliation">
+                        <div class="affiliation-title">Biostatistical Consulting Unit</div>
+                        <div class="affiliation-org">Kaiser Permanente Northern California · Division of Research</div>
+                        <div class="affiliation-desc">The BSCU provides biostatistical consulting and research support to KPNC clinicians, trainees, and medical students. To request a consultation, please reach out via the KPNC internal portal or contact Dr. Rabbani directly.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <span class="footer-name">Juleon Rabbani, DrPH</span>
+        <span class="footer-copy">© 2025 juleonrabbani.com</span>
+    </footer>
+
+    <script>
+        // ── Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const siblings = [...entry.target.closest('.container, section').querySelectorAll('.reveal:not(.visible)')];
+                const idx = siblings.indexOf(entry.target);
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, Math.min(idx, 4) * 70);
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        // ── Active nav highlight on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        const scrollSpy = () => {
+            let current = 'hero';
+            sections.forEach(sec => {
+                if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+            });
+        };
+
+        window.addEventListener('scroll', scrollSpy, { passive: true });
+        scrollSpy();
+    </script>
+</body>
+</html>
