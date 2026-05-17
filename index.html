@@ -659,7 +659,6 @@
         @media (max-width: 800px) {
             nav { padding: 0 1.25rem; }
             .nav-links { display: none; }
-            .hamburger { display: flex; }
             section { padding: 3rem 1.25rem; }
             .hero { padding: 5.5rem 1.25rem 2rem; }
             .hero-name { font-size: clamp(3.5rem, 18vw, 6rem); }
@@ -686,7 +685,7 @@
         }
 
         .hamburger {
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             background: none;
@@ -709,8 +708,10 @@
 
         .hamburger:hover .ham-icon { color: var(--accent); }
 
-        .hamburger.open .ham-icon::before { content: '✕'; }
-        .hamburger:not(.open) .ham-icon { content: ''; }
+        /* Hide hamburger on desktop */
+        @media (min-width: 801px) {
+            .hamburger { display: none; }
+        }
 
         .mobile-menu {
             display: none;
