@@ -657,13 +657,13 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 800px) {
-            nav { padding: 0 1.5rem; }
-            .nav-links { gap: 1.5rem; }
-            section { padding: 4rem 1.5rem; }
-            .hero { padding: 0 1.5rem 4rem; }
-            .hero-inner { flex-direction: column-reverse; gap: 2rem; }
-            .hero-photo { width: 160px; align-self: flex-start; }
+            nav { padding: 0 1.25rem; }
+            .nav-links { display: none; }
+            section { padding: 3rem 1.25rem; }
+            .hero { padding: 5.5rem 1.25rem 2rem; }
+            .hero-name { font-size: clamp(3.5rem, 18vw, 6rem); }
             .hero::after { display: none; }
+            .about-headshot img { width: 140px; }
             .about-grid,
             .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
             .about-sidebar {
