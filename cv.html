@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#141210">
+    <meta name="google-site-verification" content="mBqu66MQobnJBzm6WjYSnwPoJe7HHxpqOhPctWNJLh8">
+    <title>Curriculum Vitae — Juleon Rabbani, DrPH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            color-scheme: dark;
+            --bg: #141210;
+            --bg-alt: #1c1916;
+            --text: #ede8df;
+            --text-muted: #9a9088;
+            --accent: #c4895a;
+            --accent-light: #d4a878;
+            --border: #2e2924;
+            --white: #1c1916;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(20, 18, 16, 0.93);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 3rem;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-back {
+            font-size: 0.74rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 10rem 3rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .page-header h1 em { font-style: italic; color: var(--accent); }
+
+        /* JUMP NAV */
+        .jump-nav {
+            padding: 1.25rem 3rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-alt);
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .jump-nav a {
+            font-size: 0.74rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .jump-nav a:hover { color: var(--accent-light); }
+
+        /* SECTIONS */
+        .cv-section {
+            padding: 5rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cv-section:nth-child(even) { background: var(--bg-alt); }
+
+        .container { max-width: 960px; margin: 0 auto; }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            color: var(--accent-light);
+            font-style: italic;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text);
+        }
+
+        /* CV BLOCKS */
+        .sub-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        .sub-label:first-child { margin-top: 0; }
+
+        .cv-block {
+            display: flex;
+            margin-bottom: 0;
+        }
+
+        .cv-year-col {
+            width: 160px;
+            flex-shrink: 0;
+            padding: 0.15rem 2rem 2rem 0;
+            text-align: right;
+        }
+
+        .cv-year {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--accent-light);
+        }
+
+        .cv-content-col {
+            flex: 1;
+            padding: 0 0 2rem 2.5rem;
+            border-left: 1px solid var(--border);
+            position: relative;
+        }
+
+        .cv-content-col::before {
+            content: '';
+            position: absolute;
+            left: -4.5px;
+            top: 9px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            border: 2px solid var(--bg);
+        }
+
+        .cv-role {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .cv-org {
+            font-size: 0.82rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            margin: 0.2rem 0 0.5rem;
+        }
+
+        .cv-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
+        /* GRANT ITEMS */
+        .grant-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 0 2rem;
+        }
+
+        .grant-item:first-child { border-top: 1px solid var(--border); }
+
+        .grant-year {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            padding-top: 0.15rem;
+        }
+
+        .grant-title {
+            font-size: 0.92rem;
+            color: var(--text);
+            line-height: 1.55;
+            margin-bottom: 0.25rem;
+        }
+
+        .grant-meta { font-size: 0.8rem; color: var(--text-muted); }
+        .grant-amount { color: var(--accent-light); font-weight: 500; }
+
+        /* COMMITTEE ITEMS */
+        .committee-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 0 2rem;
+        }
+
+        .committee-item:first-child { border-top: 1px solid var(--border); }
+
+        /* SIMPLE LIST */
+        .simple-list { list-style: none; }
+
+        .simple-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .simple-list li:first-child {
+            border-top: 1px solid var(--border);
+            padding-top: 0;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 1.75rem 3rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg);
+        }
+
+        .footer-name {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .footer-copy { font-size: 0.73rem; color: var(--text-muted); opacity: 0.55; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 1.5rem; }
+            .page-header { padding: 8rem 1.5rem 3rem; }
+            .jump-nav { padding: 1rem 1.5rem; gap: 1.25rem; }
+            .cv-section { padding: 3.5rem 1.5rem; }
+            .cv-year-col { width: 70px; padding-right: 1rem; }
+            .grant-item, .committee-item { grid-template-columns: 70px 1fr; gap: 0 1rem; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-brand">Juleon Rabbani</a>
+        <a href="index.html" class="nav-back">← Back to main site</a>
+    </nav>
+
+    <div class="page-header">
+        <div class="page-header-eyebrow">Full Academic & Professional Record</div>
+        <h1>Curriculum<br><em>Vitae</em></h1>
+    </div>
+
+    <div class="jump-nav">
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#grants">Research Support</a>
+        <a href="#committees">Committees</a>
+        <a href="#honors">Honors</a>
+        <a href="#memberships">Memberships</a>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <section class="cv-section" id="experience">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Experience</h2>
+            </div>
+
+            <div class="sub-label reveal">Research Positions</div>
+
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2023–Present</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Director, Biostatistical Consulting Unit & Research Scientist, Biostatistics</div>
+                    <div class="cv-org">Kaiser Permanente Division of Research · Pleasanton, CA</div>
+                    <div class="cv-desc">Directs a research portfolio exceeding $16M with a team of 30+ biostatisticians, analysts, and program staff. Supports 400+ active clinical research projects and generates 150+ peer-reviewed publications and presentations annually across GME, TPMG, Community Health, KPSOM, and the KP Scholars Academy. Member, Kaiser Permanente Research Northern California (KPRNC) Executive Council.</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2023–Present</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Research Faculty, Internal Medicine Residency Program</div>
+                    <div class="cv-org">Kaiser Permanente Santa Clara · Santa Clara, CA</div>
+                    <div class="cv-desc">Provides biostatistical mentorship and research faculty support to internal medicine residents.</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2020–2023</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Assistant Director, Biostatistical Consulting Unit</div>
+                    <div class="cv-org">Kaiser Permanente Division of Research · Oakland, CA</div>
+                    <div class="cv-desc">Mentored and collaborated with KPNC clinicians to develop, implement, and publish applied research and quality improvement studies. Biostatistical reviewer, KPNC Central Research Committee.</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2019–2020</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Group Leader Consultant, Biostatistical Consulting Unit</div>
+                    <div class="cv-org">Kaiser Permanente Division of Research · Oakland, CA</div>
+                    <div class="cv-desc">Led a team of consultants providing biostatistical support to KPNC clinical investigators.</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2017–2019</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Founding Program Director, Public Health Research Internship Program</div>
+                    <div class="cv-org">Kaiser Permanente Graduate Medical Education · Vallejo, CA</div>
+                    <div class="cv-desc">Founded and directed a program integrating graduate public health and policy students into medical centers. Directly supervised 12 public health interns.</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2016–2019</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Research Director & Core Research Faculty</div>
+                    <div class="cv-org">Kaiser Permanente Napa-Solano GME · Vallejo, CA</div>
+                    <div class="cv-desc">Directed the Medical Scholars Program and served as Core Research Faculty for the Napa-Solano Family Medicine Residency Program across family medicine, podiatric surgery, and community medicine.</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2013–2015</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Research Associate</div>
+                    <div class="cv-org">Advance Health Solutions, LLC · La Jolla, CA</div>
+                    <div class="cv-desc">Survey design, statistical analysis plans, health assessments, and literature review for health topic research.</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2009–2010</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Research Adjunct Instructor</div>
+                    <div class="cv-org">Division of Occupational Science & Occupational Therapy, USC · Los Angeles, CA</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2009</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Field Investigator</div>
+                    <div class="cv-org">Graduate School of Public Health, Yonsei University · Seoul, South Korea</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2008</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Elective Fellow</div>
+                    <div class="cv-org">International Centre for Diarrheal Disease Research (ICDDR,B) · Dhaka, Bangladesh</div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">Clinical Positions</div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2004–2007</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Monitor Technician / Unit Secretary</div>
+                    <div class="cv-org">Whittier Hospital Medical Center · Whittier, CA</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2003–2007</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Certified Nursing Assistant (CNA)</div>
+                    <div class="cv-org">Whittier Hospital Medical Center · Whittier, CA</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2003</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Certified Nursing Assistant (CNA)</div>
+                    <div class="cv-org">Capistrano Beach Extended Care / Living Center · Capistrano Beach, CA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="cv-section" id="education">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Education</h2>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2015</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">DrPH — Epidemiology & Social/Behavioral Sciences</div>
+                    <div class="cv-org">Uniformed Services University, Dept. of Preventive Medicine & Biostatistics, Walter Reed National Military Medical Center, U.S. Dept. of Defense · Bethesda, MD</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2008</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">MPH — Global Health Leadership</div>
+                    <div class="cv-org">University of Southern California, Dept. of Preventive Medicine, Keck School of Medicine · Los Angeles, CA</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2007</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">BA — Health Care in a Social Context (self-designed)</div>
+                    <div class="cv-org">Whittier College · Whittier, CA</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2006</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Certification — Medical Practice and Policy</div>
+                    <div class="cv-org">Denmark's International Study (DIS) Program, University of Copenhagen · Copenhagen, Denmark</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH SUPPORT -->
+    <section class="cv-section" id="grants">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Research Support & Grants</h2>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2025–Present</div>
+                <div>
+                    <div class="grant-title">BSCU Support of Nurse-led Research <span class="grant-amount">· $60K</span></div>
+                    <div class="grant-meta">Principal Investigator · NCAL Regional Patient Care Services and KP Scholars Academy</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2025–Present</div>
+                <div>
+                    <div class="grant-title">BSCU Support of Medical Student Research <span class="grant-amount">· $100K+ annually</span></div>
+                    <div class="grant-meta">Principal Investigator · Kaiser Permanente Bernard J. Tyson School of Medicine</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2023–Present</div>
+                <div>
+                    <div class="grant-title">Bayer Post Market Mirena <span class="grant-amount">· $118,296</span></div>
+                    <div class="grant-meta">Principal Investigator · Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2019–Present</div>
+                <div>
+                    <div class="grant-title">KPNC Resident and Fellows Research Program <span class="grant-amount">· $3.5M+ annually</span></div>
+                    <div class="grant-meta">Principal Investigator · Graduate Medical Education, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2019–Present</div>
+                <div>
+                    <div class="grant-title">BSCU Support of Community Health Projects <span class="grant-amount">· $1.4M+ annually</span></div>
+                    <div class="grant-meta">Principal Investigator · Community Health, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2019–Present</div>
+                <div>
+                    <div class="grant-title">Biostatistical Consulting Unit Administration <span class="grant-amount">· $680K+ annually</span></div>
+                    <div class="grant-meta">Principal Investigator · The Permanente Medical Group (TPMG), Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2021–2023</div>
+                <div>
+                    <div class="grant-title">Understanding the Risk of Ectopic Pregnancy Among People Seeking Abortion <span class="grant-amount">· $481,585</span></div>
+                    <div class="grant-meta">KPNC Principal Investigator · Fidelity Investment Charitable Fund (subcontract from UCSF)</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2022</div>
+                <div>
+                    <div class="grant-title">Patterns and Impact of Chemical Restraint Use for Patients in the ED with Acute Psychiatric Distress <span class="grant-amount">· $74,830</span></div>
+                    <div class="grant-meta">Co-Investigator · Community Health Grant, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2022</div>
+                <div>
+                    <div class="grant-title">Longitudinal Follow-up of Childhood Noninfectious Uveitis in KP Northern California <span class="grant-amount">· $74,976</span></div>
+                    <div class="grant-meta">Co-Investigator · Community Health Grant, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2020</div>
+                <div>
+                    <div class="grant-title">Assessing Trends in Breast Cancer Incidence, Screening and Mortality Among Men: A 10-Year Observational Study <span class="grant-amount">· $74,969</span></div>
+                    <div class="grant-meta">Co-Investigator · Community Benefit Grant, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2017</div>
+                <div>
+                    <div class="grant-title">Differences in Advance Care Planning Among Older, Racial/Ethnic Minority Patients in an Integrated Healthcare System <span class="grant-amount">· $70K</span></div>
+                    <div class="grant-meta">Co-Investigator · Community Benefit Grant, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2012–2015</div>
+                <div>
+                    <div class="grant-title">Factors Associated With Physical Activity Among Visitors to Urban National Parks: Are There Group Differences? <span class="grant-amount">· $16,436</span></div>
+                    <div class="grant-meta">Principal Investigator · Doctoral Dissertation Research Award · Henry M. Jackson Foundation for the Advancement of Military Medicine and National Park Foundation</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2010–2015</div>
+                <div>
+                    <div class="grant-title">Doctoral Fellowship — Five years of full funding (tuition, research materials & living stipend)</div>
+                    <div class="grant-meta">Henry M. Jackson Foundation for the Advancement of Military Medicine, U.S. Department of Defense</div>
+                </div>
+            </div>
+            <div class="grant-item reveal">
+                <div class="grant-year">2009</div>
+                <div>
+                    <div class="grant-title">Global Health Immersion Scholarship — South Korea</div>
+                    <div class="grant-meta">University of Southern California Institute of Global Health</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMITTEES -->
+    <section class="cv-section" id="committees">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Committee & Peer Review Activities</h2>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2025–Present</div>
+                <div>
+                    <div class="grant-title">Member, Kaiser Permanente Research Northern California (KPRNC) Executive Council</div>
+                    <div class="grant-meta">Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2023–Present</div>
+                <div>
+                    <div class="grant-title">DOR Representative, Institutional Graduate Medical Education Council (IGMEC)</div>
+                    <div class="grant-meta">KPNC Graduate Medical Education</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2023–Present</div>
+                <div>
+                    <div class="grant-title">Founding Chair, GME-DOR Task Force</div>
+                    <div class="grant-meta">KPNC Division of Research</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2019–Present</div>
+                <div>
+                    <div class="grant-title">BSCU Representative & Biostatistical Grant Proposal Reviewer, Kaiser Permanente Central Research Committee</div>
+                    <div class="grant-meta">Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2016–Present</div>
+                <div>
+                    <div class="grant-title">Founding Member, Research Committee — Napa-Solano Service Area</div>
+                    <div class="grant-meta">Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2021–2024</div>
+                <div>
+                    <div class="grant-title">Member, Equity, Inclusion and Diversity (EID) Task Force</div>
+                    <div class="grant-meta">KPNC Division of Research</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2021–2023</div>
+                <div>
+                    <div class="grant-title">Member, Equity, Inclusion and Diversity (EID) Committee</div>
+                    <div class="grant-meta">KPNC Undergraduate and Graduate Medical Education</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2019–2020</div>
+                <div>
+                    <div class="grant-title">Member, Kaiser Permanente Latinx Association (KPLA) Scholarship Committee</div>
+                    <div class="grant-meta">Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2018–2020</div>
+                <div>
+                    <div class="grant-title">Member, Community Health Committee — Napa-Solano Service Area</div>
+                    <div class="grant-meta">Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2018–2019</div>
+                <div>
+                    <div class="grant-title">Founding Chair, Napa-Solano Residency Research Week Committee</div>
+                    <div class="grant-meta">KPNC Graduate Medical Education</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2018–2019</div>
+                <div>
+                    <div class="grant-title">Member, Diversity Committee — Napa-Solano Service Area</div>
+                    <div class="grant-meta">Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2017–2020</div>
+                <div>
+                    <div class="grant-title">Member, Medical Student Scholarship Committee</div>
+                    <div class="grant-meta">Graduate Medical Education, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="committee-item reveal">
+                <div class="grant-year">2017–2020</div>
+                <div>
+                    <div class="grant-title">Peer-Reviewer, Family Physicians Inquiries Network (FPIN)</div>
+                    <div class="grant-meta">Epidemiological reviewer for Help Desk Answers (HDAs)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HONORS -->
+    <section class="cv-section" id="honors">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Honors & Awards</h2>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2018</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Program Director's Award</div>
+                    <div class="cv-org">Napa-Solano Family Medicine Residency Program, Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2017</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">Distinguished Recognition for Exceptional Contributions in Founding the Napa-Solano Family Medicine Residency Program</div>
+                    <div class="cv-org">Kaiser Permanente Northern California</div>
+                </div>
+            </div>
+            <div class="cv-block reveal">
+                <div class="cv-year-col"><span class="cv-year">2014</span></div>
+                <div class="cv-content-col">
+                    <div class="cv-role">U.S. Global Youth Ambassador</div>
+                    <div class="cv-org">U.S. National Park Service and National Park Foundation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEMBERSHIPS -->
+    <section class="cv-section" id="memberships">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">06</span>
+                <h2 class="section-title">Professional Memberships</h2>
+            </div>
+            <ul class="simple-list reveal">
+                <li>American Public Health Association (APHA)</li>
+                <li>American College of Epidemiology (ACE)</li>
+                <li>Society of Epidemiological Research (SER)</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <span class="footer-name">Juleon Rabbani, DrPH</span>
+        <span class="footer-copy">© 2026 juleonrabbani.com</span>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+        reveals.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
