@@ -77,11 +77,10 @@
 
         /* ── HERO ── */
         .hero {
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 8rem 3rem 5.5rem;
+            justify-content: flex-start;
+            padding: 9rem 3rem 4rem;
             position: relative;
             overflow: hidden;
         }
@@ -160,29 +159,7 @@
             background: var(--white);
         }
 
-        .hero-scroll {
-            position: absolute;
-            bottom: 2.5rem;
-            right: 3rem;
-            writing-mode: vertical-rl;
-            font-size: 0.68rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            opacity: 0;
-            animation: fadeIn 1s ease 1.2s forwards;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .hero-scroll::after {
-            content: '';
-            display: block;
-            width: 1px;
-            height: 44px;
-            background: linear-gradient(to bottom, var(--accent-light), transparent);
-        }
+        .hero-scroll { display: none; }
 
         /* ── SHARED SECTION STYLES ── */
         section { padding: 6.5rem 3rem; }
