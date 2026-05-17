@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="dark">
-    <meta name="theme-color" content="#141210">
+    <meta name="color-scheme" content="light dark">
     <meta name="google-site-verification" content="mBqu66MQobnJBzm6WjYSnwPoJe7HHxpqOhPctWNJLh8">
     <meta name="google-site-verification" content="LVyXXWKteZ8ocOACMmAk57d8QT4BHuA2Y28G4e5H1hw">
     <title>Curriculum Vitae — Juleon Rabbani, DrPH</title>
@@ -13,9 +12,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            color-scheme: dark;
+            color-scheme: light dark;
+            --bg: #f7f3ee;
+            --bg-alt: #efe9e0;
+            --text: #1a1814;
+            --text-muted: #6b6459;
+            --accent: #7a4f2e;
+            --accent-light: #b5814f;
+            --border: #d8cfc4;
+            --white: #fdfbf8;
+            --nav-bg: rgba(247, 243, 238, 0.93);
+            --dot-border: #fdfbf8;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #141210;
+                --bg-alt: #1c1916;
+                --text: #ede8df;
+                --text-muted: #9a9088;
+                --accent: #c4895a;
+                --accent-light: #d4a878;
+                --border: #2e2924;
+                --white: #1c1916;
+                --nav-bg: rgba(20, 18, 16, 0.93);
+                --dot-border: #141210;
+            }
+        }
+
+        [data-theme="dark"] {
             --bg: #141210;
             --bg-alt: #1c1916;
             --text: #ede8df;
@@ -24,9 +52,23 @@
             --accent-light: #d4a878;
             --border: #2e2924;
             --white: #1c1916;
-            --font-display: 'Cormorant Garamond', Georgia, serif;
-            --font-body: 'DM Sans', system-ui, sans-serif;
+            --nav-bg: rgba(20, 18, 16, 0.93);
+            --dot-border: #141210;
         }
+
+        [data-theme="light"] {
+            --bg: #f7f3ee;
+            --bg-alt: #efe9e0;
+            --text: #1a1814;
+            --text-muted: #6b6459;
+            --accent: #7a4f2e;
+            --accent-light: #b5814f;
+            --border: #d8cfc4;
+            --white: #fdfbf8;
+            --nav-bg: rgba(247, 243, 238, 0.93);
+            --dot-border: #fdfbf8;
+        }
+
 
         html { scroll-behavior: smooth; }
 
@@ -44,7 +86,7 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 100;
-            background: rgba(20, 18, 16, 0.93);
+            background: var(--nav-bg);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border);
             padding: 0 3rem;
@@ -195,7 +237,7 @@
             height: 8px;
             border-radius: 50%;
             background: var(--accent-light);
-            border: 2px solid var(--bg);
+            border: 2px solid var(--dot-border);
         }
 
         .cv-role {
@@ -305,6 +347,22 @@
             .grant-item, .committee-item { grid-template-columns: 70px 1fr; gap: 0 1rem; }
             footer { flex-direction: column; gap: 0.5rem; text-align: center; }
         }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, border-color 0.2s;
+            padding: 0;
+        }
+        .theme-toggle:hover { color: var(--accent); border-color: var(--accent-light); }
     </style>
 </head>
 <body>
@@ -740,6 +798,39 @@
         <span class="footer-copy">© 2026 juleon.org</span>
     </footer>
 
+
+    <script>
+        // Apply saved theme immediately to prevent flash
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+
+        function getActiveTheme() {
+            return document.documentElement.getAttribute('data-theme') ||
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+
+        function updateIcon(theme) {
+            const icon = document.querySelector('.theme-icon');
+            if (icon) icon.textContent = theme === 'dark' ? '☀' : '☾';
+        }
+
+        function toggleTheme() {
+            const next = getActiveTheme() === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateIcon(next);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateIcon(getActiveTheme());
+            // Watch for system preference changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) updateIcon(e.matches ? 'dark' : 'light');
+            });
+        });
+    </script>
     <script>
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
