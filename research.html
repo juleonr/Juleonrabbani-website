@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#141210">
+    <title>Research & Publications — Juleon Rabbani, DrPH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            color-scheme: dark;
+            --bg: #141210;
+            --bg-alt: #1c1916;
+            --text: #ede8df;
+            --text-muted: #9a9088;
+            --accent: #c4895a;
+            --accent-light: #d4a878;
+            --border: #2e2924;
+            --white: #1c1916;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(20, 18, 16, 0.93);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 3rem;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-back {
+            font-size: 0.74rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 10rem 3rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .page-header h1 em { font-style: italic; color: var(--accent); }
+
+        .page-header-desc {
+            margin-top: 1.5rem;
+            max-width: 560px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* JUMP NAV */
+        .jump-nav {
+            padding: 1.25rem 3rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-alt);
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .jump-nav a {
+            font-size: 0.74rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .jump-nav a:hover { color: var(--accent-light); }
+
+        /* CONTENT */
+        .container { max-width: 960px; margin: 0 auto; }
+
+        .research-section {
+            padding: 5rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .research-section:nth-child(even) { background: var(--bg-alt); }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            color: var(--accent-light);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text);
+        }
+
+        /* PUB ITEMS */
+        .pubs-list { display: flex; flex-direction: column; }
+
+        .pub-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 0 2rem;
+            align-items: start;
+        }
+
+        .pub-item:first-child { border-top: 1px solid var(--border); }
+
+        .pub-year {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--accent-light);
+            padding-top: 0.2rem;
+        }
+
+        .pub-tag {
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            text-align: center;
+            background: var(--bg);
+            margin-top: 0.2rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .pub-title {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 0.3rem;
+        }
+
+        .pub-title a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .pub-title a:hover { color: var(--accent); border-color: var(--accent-light); }
+
+        .pub-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .pub-meta em { font-style: italic; color: var(--accent-light); }
+
+        /* SUBSECTION LABEL */
+        .sub-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin: 2.5rem 0 1rem;
+        }
+
+        .sub-label:first-child { margin-top: 0; }
+
+        /* FOOTER */
+        footer {
+            padding: 1.75rem 3rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg);
+        }
+
+        .footer-name {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .footer-copy { font-size: 0.73rem; color: var(--text-muted); opacity: 0.55; }
+
+        /* REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 1.5rem; }
+            .page-header { padding: 8rem 1.5rem 3rem; }
+            .jump-nav { padding: 1rem 1.5rem; gap: 1.25rem; }
+            .research-section { padding: 3.5rem 1.5rem; }
+            .pub-item { grid-template-columns: 60px 1fr; gap: 0 1rem; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-brand">Juleon Rabbani</a>
+        <a href="index.html" class="nav-back">← Back to main site</a>
+    </nav>
+
+    <div class="page-header">
+        <div class="page-header-eyebrow">Comprehensive List</div>
+        <h1>Research &<br><em>Publications</em></h1>
+        <p class="page-header-desc">Peer-reviewed publications, conference presentations, technical reports, and invited talks spanning clinical epidemiology, health services research, and medical education.</p>
+    </div>
+
+    <div class="jump-nav">
+        <a href="#journal">Journal Articles</a>
+        <a href="#acknowledgements">Acknowledgements</a>
+        <a href="#reports">Technical Reports</a>
+        <a href="#conference">Conference Presentations</a>
+        <a href="#invited">Invited Talks</a>
+    </div>
+
+    <!-- JOURNAL ARTICLES -->
+    <section class="research-section" id="journal">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Peer-Reviewed Publications</h2>
+            </div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Accepted</div>
+                    <div>
+                        <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41854577/" target="_blank" rel="noopener">Patterns of Intramuscular Chemical Sedation Use for Patients Receiving a Mental Health Consultation While in the Emergency Department ↗</a></div>
+                        <div class="pub-meta">Lippert SC, Xu RH, Tucker LS, DiLena DD, Rauchwerger AS, <strong>Rabbani J</strong>, Kene MV · <em>Annals of Emergency Medicine</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2025</div>
+                    <div>
+                        <div class="pub-title"><a href="https://www.whijournal.com/article/S1049-3867(25)00112-4/fulltext" target="_blank" rel="noopener">Incidence of Ectopic Pregnancy and Diagnostic Accuracy of Ectopic Pregnancy Screening Criteria Among People Seeking Versus Not Seeking Abortion ↗</a></div>
+                        <div class="pub-meta">Biggs MA, Armstrong MA, Tucker LY, Kaller S, <strong>Rabbani J</strong>, Lee JW, Chillemi G, Grossman D · <em>Women's Health Issues</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Sep 2025</div>
+                    <div>
+                        <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/40449643/" target="_blank" rel="noopener">Incidence and Predictors of Remission of Childhood Uveitis in a Large Community Cohort ↗</a></div>
+                        <div class="pub-meta">Qian Y, Xu RH, <strong>Rabbani J</strong>, Tucker LY · <em>American Journal of Ophthalmology</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Sep 2020</div>
+                    <div>
+                        <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/33280079/" target="_blank" rel="noopener">The Association of Spanish Language Preference with Advance Directive Completion ↗</a></div>
+                        <div class="pub-meta">Gonzalez R, Lyon L, <strong>Rabbani J</strong>, Conell C, Postlethwaite D, Spaulding M, Mason M · <em>Journal of the American Geriatrics Society</em> · 69:122–128</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACKNOWLEDGEMENTS -->
+    <section class="research-section" id="acknowledgements">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Publication Acknowledgements</h2>
+            </div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Dec 2022</div>
+                    <div>
+                        <div class="pub-title">Patient and Visit Characteristics Associated With Physical Restraint Use in the Emergency Department</div>
+                        <div class="pub-meta">Walia H, Tucker LS, Manickam RN, Kene MV, Sharp AL, Berdahl CT, Hirschtritt ME · <em>The Permanente Journal</em> · 2023;27(1):94–102</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2022</div>
+                    <div>
+                        <div class="pub-title"><a href="https://doi.org/10.21203/rs.3.rs-1443670/v1" target="_blank" rel="noopener">Accuracy of Medical Student Measurements of CT Right-to-Left Ventricular Diameter in Patients with Acute Pulmonary Embolism ↗</a></div>
+                        <div class="pub-meta">Durant E, Fetterolf SM, Engelhart DC, et al. · <em>Research Square</em> [Preprint]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Mar 2014</div>
+                    <div>
+                        <div class="pub-title">Moral Laboratories: Family Peril and the Struggle for a Good Life</div>
+                        <div class="pub-meta">Mattingly C · <em>University of California Press</em> · Berkeley and Los Angeles, CA</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Feb 2010</div>
+                    <div>
+                        <div class="pub-title">The Paradox of Hope: Journeys Through a Clinical Borderland</div>
+                        <div class="pub-meta">Mattingly C · <em>University of California Press</em> · Berkeley and Los Angeles, CA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL REPORTS -->
+    <section class="research-section" id="reports">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Technical Reports</h2>
+            </div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Dec 2019</div>
+                    <div>
+                        <div class="pub-title"><a href="https://www.esri.com/content/dam/esrisites/en-us/media/pdf/altering-course-of-disease-surveillance-govloop-brochure.pdf" target="_blank" rel="noopener">Kaiser Permanente and Diabetes Mapping — Altering the Course of Disease Surveillance: Connecting Cause and Effect to Location ↗</a></div>
+                        <div class="pub-meta"><strong>Rabbani J</strong>, Gonzalez R · <em>GovLoop & ESRI</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2015</div>
+                    <div>
+                        <div class="pub-title"><a href="https://apps.dtic.mil/sti/citations/AD1012739" target="_blank" rel="noopener">Factors That Are Associated With Physical Activity Among Visitors To Urban National Parks: Are There Group Differences? ↗</a></div>
+                        <div class="pub-meta"><strong>Rabbani J</strong> · <em>Defense Technical Information Center</em> · U.S. Department of Defense</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2014</div>
+                    <div>
+                        <div class="pub-title"><a href="https://www.nps.gov/subjects/healthandsafety/upload/HealthyParksHealthyPeople_eGuide.pdf" target="_blank" rel="noopener">Health Promotion and Practice in National Parks — Healthy Parks, Healthy People: Community Engagement eGuide ↗</a></div>
+                        <div class="pub-meta">National Park Service (<strong>Rabbani J</strong>, contributing author) · <em>U.S. National Park Service</em> · Edition 1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFERENCE PRESENTATIONS -->
+    <section class="research-section" id="conference">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Peer-Reviewed Conference Presentations</h2>
+            </div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2024</div>
+                    <div>
+                        <div class="pub-title">Incidence of Ectopic Pregnancy Among People Seeking and Not Seeking Abortion in a Large Integrated Healthcare Delivery System</div>
+                        <div class="pub-meta">Biggs MA, Armstrong M, Tucker L, Kaller S, <strong>Rabbani J</strong>, Lee JW, Grossman D · <em>Society of Family Planning Annual Meeting</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2024</div>
+                    <div>
+                        <div class="pub-title">Incidence and Predictors of Remission of Childhood Uveitis in a Northern California Cohort</div>
+                        <div class="pub-meta">Qian Y, Xu RH, Tucker LY, <strong>Rabbani J</strong> · <em>Association for Research in Vision and Ophthalmology (ARVO) Annual Meeting</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2023</div>
+                    <div>
+                        <div class="pub-title">Incidence and Predictors of Remission of Childhood Uveitis in a Large Community Cohort</div>
+                        <div class="pub-meta">Qian Y, Xu RH, <strong>Rabbani J</strong>, Tucker LY · <em>American Academy of Ophthalmology Annual Conference</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2023</div>
+                    <div>
+                        <div class="pub-title">Patterns of Chemical Restraint Use for ED Patients with Acute Mental Health Distress</div>
+                        <div class="pub-meta">Lippert S, Xu RH, Tucker LY, <strong>Rabbani J</strong>, Rauchwerger AS, Kene MV · <em>Annals of Emergency Medicine</em> · 82(4S1) [Abstract 245]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2021</div>
+                    <div>
+                        <div class="pub-title">Examining Racial Disparities in Male Breast Cancer</div>
+                        <div class="pub-meta">Linehan E, Samant N, <strong>Rabbani J</strong> · <em>American Society of Clinical Oncology (ASCO) Annual Conference</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2019</div>
+                    <div>
+                        <div class="pub-title">An Examination of Depression Severity and Emergency Department Utilization Among Napa and Solano County Patients in an Integrated Health System</div>
+                        <div class="pub-meta">Thompson Andreas C, <strong>Rabbani J</strong>, Stecker T, Gonzalez R · <em>American Public Health Association Annual Meeting, Medical Care Section</em> · Philadelphia, PA</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Sep 2019</div>
+                    <div>
+                        <div class="pub-title">The Association of Ethnicity and Hispanic Acculturation Status with Advance Directive Completion Among Older Patients in an Integrated Health System</div>
+                        <div class="pub-meta">Gonzalez R, Lyon L, <strong>Rabbani J</strong>, Conell C, Postlethwaite D, Spaulding M, Mason M · <em>American College of Epidemiology Abstracts Special Issue, Annals of Epidemiology</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2019</div>
+                    <div>
+                        <div class="pub-title">The Public Health Research Internship Program: An Innovative Approach to Increasing and Diversifying Scholarly Activity in Graduate Medical Education</div>
+                        <div class="pub-meta"><strong>Rabbani J</strong>, Gonzalez R, Stecker T, Symkowick M, O'Connell T, Dorado F, Loaiza M · <em>Jonathan Rodnick Family & Community Medicine Colloquium, UCSF</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2019</div>
+                    <div>
+                        <div class="pub-title">Predicting Emergency Department Utilization in a Population of Kaiser Permanente Napa-Solano Medi-Cal Patients</div>
+                        <div class="pub-meta">King B, <strong>Rabbani J</strong>, Symkowick M · <em>Society for Teachers of Family Medicine Annual Spring Conference</em> · Toronto, Canada [Oral]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2019</div>
+                    <div>
+                        <div class="pub-title">Demographic Factors Associated with Childhood Vaccine Series and Influenza Vaccine Coverage Among Kaiser Permanente Patients in Napa-Solano</div>
+                        <div class="pub-meta">Li R, <strong>Rabbani J</strong>, Symkowick M, Bahou M · <em>Jonathan Rodnick Family & Community Medicine Colloquium, UCSF</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2019</div>
+                    <div>
+                        <div class="pub-title">Measuring the Impact of a Diversity and Social Justice Committee on Interviews Offered in a Family Medicine Residency Program</div>
+                        <div class="pub-meta">Symkowick M, O'Connell T, Mathur M, Li R, <strong>Rabbani J</strong>, Stecker T, Gonzalez R · <em>Jonathan Rodnick Family & Community Medicine Colloquium, UCSF</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2019</div>
+                    <div>
+                        <div class="pub-title">Fixing the Leaky Pipe: Creating an Innovative Pipeline Program to Increase Under-Represented Minorities in the Health Professions</div>
+                        <div class="pub-meta">Fisher E, Iten E, Kinnevey C, <strong>Rabbani J</strong>, Gonzalez R, Stecker T · <em>Society for Teachers of Family Medicine Annual Spring Conference</em> · Toronto, Canada [Lecture]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2018</div>
+                    <div>
+                        <div class="pub-title">Utilizing Spatial Epidemiology for Quality Improvement Projects in Applied Health Care Settings</div>
+                        <div class="pub-meta"><strong>Rabbani J</strong>, Gonzalez R, Symkowick M, Shaver J, O'Connell T · <em>American Public Health Association Annual Meeting, Health Informatics Information Technology Section</em> · San Diego, CA [Oral]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2018</div>
+                    <div>
+                        <div class="pub-title">Health Patterns Among Rural Community Members in Comayagua, Honduras: Conducting an Epidemiological Needs Assessment Among an Unstudied Population</div>
+                        <div class="pub-meta">Stecker T, <strong>Rabbani J</strong>, Sevilla-Martir J, Arora A, Iten E, Kinnevey C · <em>APHA Annual Meeting, International Health Section</em> · San Diego, CA</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2018</div>
+                    <div>
+                        <div class="pub-title">Factors That Are Associated with Physical Activity Among Visitors to Urban National Parks: Are There Group Differences?</div>
+                        <div class="pub-meta"><strong>Rabbani J</strong>, Girasek D, Byrne C, Bynum S, Snelling A · <em>APHA Annual Meeting, Physical Activity Section</em> · San Diego, CA</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2018</div>
+                    <div>
+                        <div class="pub-title">Creating a Data-Driven Needs Assessment for Global Health Trips: Understanding a Rural Honduran Population</div>
+                        <div class="pub-meta">Stecker T, <strong>Rabbani J</strong>, Sevilla-Martir J, Arora A, Iten E, Kinnevey C · <em>Global Health Summit, American Academy of Family Physicians</em> · Jacksonville, FL [Oral]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2018</div>
+                    <div>
+                        <div class="pub-title">Equitable Clinical Decision Making: Creating a Needs Assessment to Design an Implicit Bias Curriculum</div>
+                        <div class="pub-meta">Stecker T, Fung-Sakita S, <strong>Rabbani J</strong>, Arora A, O'Connell T · <em>Society for Teachers of Family Medicine Annual Spring Conference</em> · Washington DC [Oral]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2018</div>
+                    <div>
+                        <div class="pub-title">Demographic and Clinical Factors Associated with Emergency Department Visits Among Kaiser Permanente Napa-Solano Medi-Cal Patients</div>
+                        <div class="pub-meta">King B, <strong>Rabbani J</strong>, Symkowick M · <em>Jonathan Rodnick Family & Community Medicine Colloquium, UCSF</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2018</div>
+                    <div>
+                        <div class="pub-title">Creating a Framework for Completing Scholarly Activities during Short-term Global Health Sub-Internships</div>
+                        <div class="pub-meta">Iten E, Kinnevey C, Stecker T, <strong>Rabbani J</strong> · <em>Jonathan Rodnick Family & Community Medicine Colloquium, UCSF</em></div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jan 2018</div>
+                    <div>
+                        <div class="pub-title">Innovations in Health Promotion: Medical Students Designing Community-Based Health Promotion Modules as Scholarly Activity Project</div>
+                        <div class="pub-meta">Stecker T, Gonzalez R, Dun G, <strong>Rabbani J</strong> · <em>Society for Teachers of Family Medicine Conference on Medical Student Education</em> · Austin, TX</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2017</div>
+                    <div>
+                        <div class="pub-title">Cracking the Code: Developing Global Health Research Opportunities for Underrepresented Minority College Students</div>
+                        <div class="pub-meta">Stecker T, <strong>Rabbani J</strong>, Sevilla-Martir J · <em>Global Health Workshop, American Academy of Family Physicians</em> · Houston, TX [Oral]</div>
+                    </div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2017</div>
+                    <div>
+                        <div class="pub-title">The Medical Scholars Leadership Forum: Describing a Novel Health Promotion-Based Approach to Increasing Diversity in the Medical Workforce</div>
+                        <div class="pub-meta">Gonzalez R, Stecker T, <strong>Rabbani J</strong> · <em>Jonathan Rodnick Family & Community Medicine Colloquium, UCSF</em> [Oral]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INVITED TALKS -->
+    <section class="research-section" id="invited">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Other Presentations & Invited Talks</h2>
+            </div>
+
+            <div class="sub-label reveal">2025</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Dec 2025</div>
+                    <div><div class="pub-title">Introduction to Focus Groups</div><div class="pub-meta"><em>KPNC Community Medicine Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2025</div>
+                    <div><div class="pub-title">Introduction to Survey Development</div><div class="pub-meta"><em>KPNC Community Medicine Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2025</div>
+                    <div><div class="pub-title">Crafting Data-Driven Investigations in Clinical Learning Environments</div><div class="pub-meta"><em>AIAMC National Initiative X Meeting One Conference</em> · Chicago, IL</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2025</div>
+                    <div><div class="pub-title">DOR BSCU Community Health Grant Program Report</div><div class="pub-meta"><em>Central Research Committee Fall Meeting</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Aug 2025</div>
+                    <div><div class="pub-title">Biostatistical Methods for Clinical Research</div><div class="pub-meta"><em>KPNC Cardiology Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2025</div>
+                    <div><div class="pub-title">Introduction to Clinical Research & Evidence-Based Medicine</div><div class="pub-meta"><em>Introduction to Integrated Health Care (IIHC)</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2025</div>
+                    <div><div class="pub-title">Overview of Research Opportunities: New Resident Orientation</div><div class="pub-meta">Lieu T, <strong>Rabbani J</strong> · <em>Regional Undergraduate/Graduate Medical Education</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">2024</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2024</div>
+                    <div><div class="pub-title">Introduction to Survey Development and Focus Groups</div><div class="pub-meta"><em>KPNC Community Medicine Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Oct 2024</div>
+                    <div><div class="pub-title">Manuscript Development and Submission Workshop</div><div class="pub-meta"><strong>Rabbani J</strong>, Surmava A, Flores J · <em>BSCU Programmer Workshop</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Aug 2024</div>
+                    <div><div class="pub-title">Biostatistical Methods for Clinical Research</div><div class="pub-meta"><em>KPNC Cardiology Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2024</div>
+                    <div><div class="pub-title">Overview of Research Opportunities: New Resident Orientation</div><div class="pub-meta"><em>Regional Undergraduate/Graduate Medical Education</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Mar 2024</div>
+                    <div><div class="pub-title">Biostatistical Methods for Clinical Research</div><div class="pub-meta"><em>KPNC Santa Clara Internal Medicine Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Feb 2024</div>
+                    <div><div class="pub-title">Biostatistical Methods for Clinical Research</div><div class="pub-meta"><em>KPNC Cardiology Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">2023</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2023</div>
+                    <div><div class="pub-title">Introduction to Survey Development and Focus Groups</div><div class="pub-meta"><em>KPNC Community Medicine Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2023</div>
+                    <div><div class="pub-title">Introduction to GIS</div><div class="pub-meta"><em>KPNC Community Medicine Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Mar 2023</div>
+                    <div><div class="pub-title">When You Want That P-value, But That P-value Doesn't Want You: A "Painless" Introduction to Clinical Statistics</div><div class="pub-meta"><em>Scholarly Cross-Residency Outreach and Presentation Extravaganza (SCOPE)</em> · KPNC Graduate Medical Education</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Mar 2023</div>
+                    <div><div class="pub-title">Introduction to the BSCU</div><div class="pub-meta"><em>Women's Health Research Collaborative</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">2022</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2022</div>
+                    <div><div class="pub-title">Publication and Scholarly Output in Graduate Medical Education: Tips and Tools for Success</div><div class="pub-meta"><em>Alliance of Independent Academic Medical Centers (AiAMC) National Initiative Webinar</em></div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2022</div>
+                    <div><div class="pub-title">Overview of Research Opportunities: New Resident Orientation</div><div class="pub-meta"><em>Regional Undergraduate/Graduate Medical Education</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jan 2022</div>
+                    <div><div class="pub-title">Variables, Codebooks and Chart Review</div><div class="pub-meta"><em>KPNC Research Pilot Training Program</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">2021</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Apr 2021</div>
+                    <div><div class="pub-title">Scholarship in Medical Education: How to Create a Research Program</div><div class="pub-meta"><em>Regional UME/GME Spring Offsite</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2021</div>
+                    <div><div class="pub-title">Overview of Research Opportunities: New Resident Orientation</div><div class="pub-meta"><em>Regional Undergraduate/Graduate Medical Education</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">2020</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2020</div>
+                    <div><div class="pub-title">Sensitivity, Specificity, PPV and NPV</div><div class="pub-meta"><em>Oakland Pediatrics Resident Program Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Dec 2020</div>
+                    <div><div class="pub-title">Introduction to Survey Development and Focus Groups</div><div class="pub-meta"><em>KPNC Community Medicine Fellowship Didactics</em> · Kaiser Permanente Northern California</div></div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">2019</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Jun 2019</div>
+                    <div><div class="pub-title">The Opportunities and Challenges in Conducting Latino Health Research in an Integrated Health System</div><div class="pub-meta"><em>National Hispanic Nurses Association</em> · San Jose, CA</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2019</div>
+                    <div><div class="pub-title">Scholarship and Research: Practical Tools to Getting Started</div><div class="pub-meta"><em>Kaiser Permanente Napa-Solano Interprofessional Research Week</em> · Vallejo, CA</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">Mar 2019</div>
+                    <div><div class="pub-title">Scholarship and Research: Practical Tools to Getting Started</div><div class="pub-meta"><em>Kaiser Permanente Faculty Development Symposium: Building Excellence in Teaching for the 21st Century</em> · Sacramento, CA</div></div>
+                </div>
+            </div>
+
+            <div class="sub-label reveal">2018</div>
+            <div class="pubs-list">
+                <div class="pub-item reveal">
+                    <div class="pub-year">Nov 2018</div>
+                    <div><div class="pub-title">Geographic Information Systems (GIS) and Data Visualization — Session Moderator</div><div class="pub-meta"><em>American Public Health Association Annual Meeting, Health Informatics Information Technology Section</em> · San Diego, CA</div></div>
+                </div>
+                <div class="pub-item reveal">
+                    <div class="pub-year">May 2018</div>
+                    <div><div class="pub-title">Scholarship and Education: The "How-To's" of Putting Together a Poster and Abstract</div><div class="pub-meta"><em>Graduate Medical Education Spring Offsite</em> · Kaiser Permanente Northern California · Aptos, CA</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <span class="footer-name">Juleon Rabbani, DrPH</span>
+        <span class="footer-copy">© 2026 juleonrabbani.com</span>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+        reveals.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
