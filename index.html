@@ -451,6 +451,13 @@
             font-size: 0.76rem;
             letter-spacing: 0.08em;
             color: var(--accent);
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .partner-badge:hover {
+            background: var(--accent-light);
+            color: var(--bg);
         }
 
         /* ── CONTACT ── */
@@ -907,11 +914,11 @@
             <div class="reveal">
                 <div class="sidebar-label" style="margin-bottom: 0.85rem;">Institutional Partners</div>
                 <div class="bscu-partners">
-                    <span class="partner-badge">TPMG</span>
-                    <span class="partner-badge">GME</span>
-                    <span class="partner-badge">Community Health</span>
-                    <span class="partner-badge">KPSOM</span>
-                    <span class="partner-badge">Division of Research</span>
+                    <a href="https://permanente.org" target="_blank" rel="noopener" class="partner-badge">TPMG</a>
+                    <a href="https://residency-ncal.kaiserpermanente.org" target="_blank" rel="noopener" class="partner-badge">GME</a>
+                    <a href="https://about.kaiserpermanente.org/community-health" target="_blank" rel="noopener" class="partner-badge">Community Health</a>
+                    <a href="https://medschool.kp.org" target="_blank" rel="noopener" class="partner-badge">KPSOM</a>
+                    <a href="https://divisionofresearch.kaiserpermanente.org" target="_blank" rel="noopener" class="partner-badge">Division of Research</a>
                 </div>
             </div>
 
