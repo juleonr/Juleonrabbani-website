@@ -67,7 +67,7 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
   const s = pres.addSlide();
   title(s, "A plan is never the output of one model", "Four numbers that describe the process, all read from the deployed code");
   const tiles = [
-    ["7", "steps, built in the order a study develops, with the design settled first"],
+    ["6", "workspace phases, each ending in a gate the investigator confirms, with the design settled in Phase 3"],
     ["2", "independent model reviewers, Anthropic and OpenAI, merged worst case"],
     ["37", "deterministic checks: 17 estimand rules and 20 validators"],
     ["7", "check codes that withhold the sample size outright, never with a warning under it"],
@@ -83,35 +83,33 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
   s.addNotes("Ninety seconds. The point is the division of labour, not the counts. Models supply the reasoning; code supplies the discipline. The last line is the one sentence to remember.");
 }
 
-// ---------------------------------------------------------------- 3. seven steps
+// ---------------------------------------------------------------- 3. six phases
 {
   const s = pres.addSlide();
-  title(s, "The plan is built in the order a study develops", "A free design brief first, then six plan steps; one credit is spent at step 3");
-  legendDot(s, 0.62, 1.63, C.bronze, "Reviewed by two model labs");
-  legendDot(s, 3.6, 1.63, C.green, "Deterministic checks only", 3.4);
-  legendDot(s, 6.7, 1.63, C.gold, "Investigator answers questions here", 4);
-  const steps = [
-    ["STEP 1", "Question and data", "What am I asking, has it been answered, what records do I have?", "Free. Nothing generated.", C.green, 0],
-    ["STEP 2", "Design brief", "The design and why, the typed estimand, the conditions it depends on, the alternatives.", "Free. Two-lab review.", C.bronze, 2],
-    ["STEP 3", "Patients and data", "Who is in, what is measured, where the records come from, who must say yes.", "Spends the credit. Sign-in required.", C.green, 3],
-    ["STEP 4", "Analysis and how many", "How the numbers are compared, and how many patients that takes.", "Two-lab review, corrective pass, adjudication.", C.bronze, 1],
-    ["STEP 5", "Approvals, team, cost", "Who approves, what it costs, what to do on Monday.", "Runs on its own after step 4.", C.green, 0],
-    ["STEP 6", "Write-up", "Abstract, methods paragraph, background with PubMed-resolved references.", "On request.", C.green, 0],
-    ["STEP 7", "Code", "Runnable code in the investigator's software, never executed by Mallard.", "On request.", C.green, 0],
+  title(s, "Six phases, each ending in a gate the investigator confirms", "The workspace is the default entry; the design is settled in Phase 3 and the plan credit is spent in Phase 4");
+  legendDot(s, 0.62, 1.63, C.bronze, "Models draft; two labs review the brief and the analyses", 4.6);
+  legendDot(s, 5.4, 1.63, C.green, "Deterministic gates and checks", 3.2);
+  legendDot(s, 8.9, 1.63, C.gold, "Generated on the investigator's press", 3.6);
+  const phases = [
+    ["PHASE 1", "Question and aims", "Aims suggested with placeholders; roles and claims set; the aims check; a PubMed literature scan.", "Free. Gate: 1 to 3 aims with roles.", C.bronze],
+    ["PHASE 2", "Feasibility", "Seven questions, each answered with a basis and an owner; the variable map on request.", "Free. Gate: every row has a basis and a result.", C.green],
+    ["PHASE 3", "Design confirmation", "Estimand and variables first, then the free brief: design, conditions, up to three alternatives.", "Free brief. Gate: estimand, variables, design confirmed.", C.bronze],
+    ["PHASE 4", "Analysis and sizing", "Build the study, then draft each aim's analysis, sizing and exhibits; edit, update, accept.", "One plan credit. Gate: the biostatistician checkpoint.", C.gold],
+    ["PHASE 5", "Execution and budget", "Operations, governance, tasks, timeline and budget drafted on request; readiness recorded.", "Gate: ready, conditional, or infeasible.", C.gold],
+    ["PHASE 6", "Finalise and export", "Written package and code per language on request; reconciler named; export with review record.", "Gate: nothing pending, no open comments.", C.gold],
   ];
-  const w = 1.62, gap = 0.13, y = 2.2;
-  steps.forEach(([lab, head, ask, how, dot, q], i) => {
+  const w = 1.9, gap = 0.146, y = 2.2;
+  phases.forEach(([lab, head, what, gate, dot], i) => {
     const x = 0.62 + i * (w + gap);
     stepCard(s, x, y, w, lab, head, [], { headH: 1.15, bodyH: 2.35, headSize: 14 });
     s.addText([
-      { text: ask, options: { color: C.ink, fontSize: 9.5, breakLine: true, paraSpaceAfter: 6 } },
-      { text: how, options: { color: C.green, fontSize: 9.5, bold: true } },
-    ], { x: x + 0.14, y: y + 1.3, w: w - 0.28, h: 1.6, fontFace: B, isTextBox: true, margin: 0, valign: "top" });
+      { text: what, options: { color: C.ink, fontSize: 9.5, breakLine: true, paraSpaceAfter: 6 } },
+      { text: gate, options: { color: C.green, fontSize: 9.5, bold: true } },
+    ], { x: x + 0.14, y: y + 1.3, w: w - 0.28, h: 1.75, fontFace: B, isTextBox: true, margin: 0, valign: "top" });
     s.addShape(pres.shapes.RECTANGLE, { x: x + 0.14, y: y + 3.2, w: 0.13, h: 0.13, fill: { color: dot }, line: { color: dot } });
-    if (q) s.addText(`${q} question${q > 1 ? "s" : ""} asked`, { x: x + 0.34, y: y + 3.13, w: w - 0.4, h: 0.28, fontFace: M, fontSize: 8, bold: true, color: C.bronze, isTextBox: true, margin: 0, valign: "middle" });
   });
-  band(s, "Each step drafts only its own sections. The investigator's answers are pinned as facts no later step can overwrite, and re-running a step marks everything after it stale.");
-  s.addNotes("Two minutes. Walk the row left to right. Stress that the design decision is made first and separately, because a plan built on the wrong design is wrong throughout, and that the investigator approves it before a credit is spent. Steps 6 and 7 are on request so a power justification does not carry an unwanted abstract.");
+  band(s, "A later decision can reopen an earlier phase. Before an edit is saved, the investigator sees what generated work it affects and what is preserved.");
+  s.addNotes("Two minutes. Walk the row left to right. Stress three things: the estimand and variables come before the design is recommended; the design is confirmed before a credit is spent; and execution, the write-up and code are drafted only when asked for. The seven generation steps of the pipeline still exist underneath, but the investigator sees these six phases.");
 }
 
 // ---------------------------------------------------------------- 4. what it collects
@@ -140,14 +138,14 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
 // ---------------------------------------------------------------- 5. feedback loop
 {
   const s = pres.addSlide();
-  title(s, "How a draft becomes a plan", "Two reviews, one guarded revision, a judge that never edits, and then the code");
+  title(s, "How a draft becomes a plan", "Two reviews, one guarded revision, a judge that never edits, then the code, then the investigator");
   s.addImage({ path: "loop.png", x: 0.62, y: 1.7, w: 3.05, h: 4.8 });
   const items = [
     ["Two reviewers, merged worst case", "Each returns ranked issues plus a verdict on seven safety domains. An unanswered domain is unknown, never pass, and a concern reaches the revision even without an issue slot."],
     ["One guarded corrective patch", "Only the step's own sections. A patch that changes a type, truncates, empties a section or invents a reviewer response is dropped; a thinner revision is rejected."],
     ["An adjudicator that judges, never edits", "It re-reads the final plan against the reviewer issues within 90 seconds. Its verdict is shown to the reader and never rewrites the plan."],
     ["The deterministic layer has the last word", "Thirty-seven checks read the typed estimand, sizing method, analysis, diagram and exhibits and compare them. Seven codes withhold the sample size everywhere."],
-    ["The investigator closes the loop", "Open findings become one form: values only they know, contradictions to reconcile, mechanical fixes. One button, one revision, one credit."],
+    ["The investigator closes the loop", "An edit to a confirmed decision is previewed with the work it affects. Update affected sections regenerates only the stale parts, and the result is held with a diff until it is accepted or discarded."],
   ];
   items.forEach(([h, t], i) => {
     const y = 1.72 + i * 0.97;
@@ -187,27 +185,27 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
   const s = pres.addSlide();
   title(s, "Who decides what", "Every activity sits in one of three lanes, and nothing reaches the export without the third");
   const lanes = [
-    ["LANE 1", "The investigator", [["11 typed inputs", "Context fields, aims and hypotheses, feasibility answers, estimand and variables, analysis contract and sizing inputs, counts, execution, finalisation."], ["11 decisions", "Confirmatory or not, aims-check disposition, basis per answer, approve or alternative, each design condition, biostatistician review, multiplicity, data requests, revise, readiness, write-up and code."]]],
+    ["LANE 1", "The investigator", [["11 typed inputs and 4 presses", "Context fields, aims and hypotheses, feasibility answers, estimand and variables, answers to the model, analysis contract and sizing inputs, counts, execution, finalisation. Presses: build study, draft analyses, draft execution, write-up and code."], ["11 decisions", "Confirmatory or not, aims-check disposition, basis per answer, approve or alternative, each design condition, data requests, multiplicity, save or update after an edit, accept or discard a result, readiness, write-up and code."]]],
     ["LANE 2", "Stochastic language models", [["Draft and review", "Suggest aims, draft the brief and each step, review as two independent labs, propose one patch, adjudicate."], ["Output varies run to run", "So nothing a model writes is trusted on its own. Every draft is checked against the typed facts before it is shown."]]],
-    ["LANE 3", "Deterministic code", [["11 gates and checks", "PHI stripping, context, question, feasibility, conflict, design, credit, 37 plan checks, counts, analysis, execution and finalisation gates, then the export."], ["The only reproducible lane", "Same input, same verdict, every time. It is the only path to the export and the only thing that can withhold a number."]]],
+    ["LANE 3", "Deterministic code", [["Six phase gates and the checks between them", "PHI stripping, the conflict gate, the credit check, the 37 plan checks, the recomputed number, count reconciliation, the stale-dependency map and the pending-result guard, then the export."], ["The only reproducible lane", "Same input, same verdict, every time. It is the only path to the export and the only thing that can withhold a number."]]],
   ];
   lanes.forEach(([lab, head, body], i) => {
     const x = 0.62 + i * 4.02, w = 3.85;
     stepCard(s, x, 1.75, w, lab, head, rich(body, 12), { headH: 1.08, bodyH: 3.25, headSize: 19, bodySize: 12 });
   });
-  band(s, "The one loop back from the code lane to the models is the investigator's fixup form, and it costs a credit.", 6.35);
+  band(s, "The one loop back from the code lane to the models is an investigator's decision edit, and its result waits for acceptance.", 6.35);
   s.addNotes("Two minutes. This is the governance slide. The lanes are the answer to \"where is the AI in this\": it drafts and reviews; it does not decide what is printed. The full swimlane map with every decision is in the document; the next slide shows one panel of it.");
 }
 
 // ---------------------------------------------------------------- 8. process map panel
 {
   const s = pres.addSlide();
-  title(s, "One panel of the process map: analysis and sizing", "Parallelogram = investigator input · diamond = decision · rectangle = process · numbered circle = continues on the next panel");
-  s.addImage({ path: "panelD.png", x: 0.62, y: 1.72, w: 10.3, h: 5.12 });
+  title(s, "One panel of the process map: revision inside Phase 4", "Parallelogram = investigator input · diamond = decision · rectangle = process · numbered circle = continues on another panel");
+  s.addImage({ path: "panelE.png", x: 0.62, y: 1.72, w: 10.3, h: 5.12 });
   s.addText([
     { text: "Read it left to right.", options: { bold: true, breakLine: true } },
-    { text: "The investigator supplies the contract and presses Calculate; the code recomputes the number and runs the checks; the fixup form is the only route back to the models.", options: { breakLine: true } },
-    { text: "\nFive panels cover the whole flow, tagged I1 to I11 and D1 to D11.", options: { color: C.muted } },
+    { text: "Multiplicity and counts are investigator decisions. An edit is previewed, affected work is marked stale, an update regenerates only that work, and the result waits for acceptance.", options: { breakLine: true } },
+    { text: "\nSix panels cover the whole flow, tagged I1 to I11 and D1 to D11.", options: { color: C.muted } },
   ], { x: 11.1, y: 1.75, w: 1.9, h: 5.3, fontFace: B, fontSize: 10.5, color: C.ink, isTextBox: true, margin: 0, valign: "top", paraSpaceAfter: 6 });
   s.addNotes("One minute. Do not read the panel. Point at the three lanes and the fixup diamond, then move on. Offer the document for the other four panels.");
 }
@@ -219,15 +217,15 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
   const D = [
     ["Any aim confirmatory?", "Investigator writes the hypothesis; multiplicity becomes required"],
     ["Aims-check finding: apply, keep with a reason, or skip", "Model runs the literature scan"],
-    ["Basis per feasibility answer: checked, assumption, or task", "Code feasibility gate; a task blocks design until closed"],
+    ["Basis per feasibility answer: checked, assumption, or task", "Code Phase 2 gate; a task blocks design until closed"],
     ["Approve the design, or pick an alternative", "Model re-runs the brief, free; or code runs the conflict gate"],
-    ["Each design condition: confirmed, to check, or not available", "Investigator defines the estimand and variables"],
-    ["Request a biostatistician design review?", "Code pins the review to the decisions; any change makes it stale"],
-    ["Multiplicity family, method and sizing implication", "Code analysis gate"],
-    ["Data beyond the map: add it, or remove from the analysis", "Code analysis gate"],
-    ["Send the fixup form as one revision?", "Models: guarded patch and adjudication; one credit"],
-    ["Readiness: ready, conditional or infeasible", "Code execution gate; infeasible blocks the phase"],
-    ["Request the write-up and code, and in which languages", "Models draft steps 6 and 7 on request; code is never executed"],
+    ["Each design condition: confirmed, to check, or not available", "Code Phase 3 gate, then the design confirmation"],
+    ["Data beyond the map: add it, or remove from the analysis", "Investigator fills the analysis contract"],
+    ["Multiplicity family, method and sizing implication", "Investigator reconciles counts; code Phase 4 gate"],
+    ["After an edit: save only, or update the affected sections", "Code marks stale work; models regenerate only that"],
+    ["Accept or discard the generated changes", "Code Phase 4 gate; the result is refused if decisions moved"],
+    ["Readiness: ready, conditional or infeasible", "Code Phase 5 gate; infeasible blocks the phase"],
+    ["Request the written package and code, and in which languages", "Models draft them on request; code is never executed"],
   ];
   D.forEach(([d, next], i) => {
     const col = i < 6 ? 0 : 1, row = i < 6 ? i : i - 6;
@@ -237,8 +235,8 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
     s.addText(next, { x: x + 0.65, y: y + 0.3, w: 5.3, h: 0.42, fontFace: B, fontSize: 10.5, color: C.muted, isTextBox: true, margin: 0, valign: "top" });
   });
   s.addShape(pres.shapes.RECTANGLE, { x: 6.72, y: 5.65, w: 5.85, h: 0.75, fill: { color: C.card }, line: { color: C.card } });
-  s.addText("Eleven more items are typed inputs rather than choices: the context fields, aims, hypotheses, feasibility answers, conflict answers, estimand and variables, the model's questions, the analysis contract, counts, execution fields and finalisation.", { x: 6.9, y: 5.68, w: 5.5, h: 0.7, fontFace: B, fontSize: 10, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
-  s.addNotes("Two minutes. Do not read all eleven. Name D4, D6 and D9: the design approval that gates the credit, the optional statistician review that goes stale if anything changes, and the one revision that costs a credit. Appendix A of the document gives every option and its effect.");
+  s.addText("Eleven more items are typed inputs rather than choices, and four are presses: build the study, draft the analyses, draft execution, and request the written package and code.", { x: 6.9, y: 5.68, w: 5.5, h: 0.7, fontFace: B, fontSize: 10, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
+  s.addNotes("Two minutes. Do not read all eleven. Name D4, D8 and D9: the design approval that gates the credit, the save-or-update choice after an edit, and the explicit acceptance of anything regenerated. Appendix A of the document gives every option and its effect.");
 }
 
 // ---------------------------------------------------------------- 10. limitations

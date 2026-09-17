@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1788" height="976" viewBox="0 0 1788 976" font-family="Helvetica, Arial, sans-serif" font-size="15">
+<svg xmlns="http://www.w3.org/2000/svg" width="1878" height="976" viewBox="0 0 1878 976" font-family="Helvetica, Arial, sans-serif" font-size="15">
 <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B3A35"/></marker></defs>
-<rect width="1788" height="976" fill="#FFFFFF"/>
-<text x="96" y="34" font-size="22" font-weight="700" fill="#121A17">Panel A. Context and aims</text>
+<rect width="1878" height="976" fill="#FFFFFF"/>
+<text x="96" y="34" font-size="22" font-weight="700" fill="#121A17">Panel A. Study context, and Phase 1: question and aims</text>
 <text x="96" y="56" font-size="14" fill="#5F6B66">Time runs left to right. Parallelogram = investigator input · diamond = decision · rectangle = process · rounded = start or end · page shape = output.</text>
-<text x="96" y="76" font-size="14" fill="#5F6B66">Numbered circles continue on the next panel. Investigator inputs are tagged I1 to I11 and decisions D1 to D11, in the order they are made.</text>
+<text x="96" y="76" font-size="14" fill="#5F6B66">Numbered circles continue on the next panel. Investigator inputs are tagged I1 to I11 and decisions D1 to D11, in the order they are made; plain rectangles in the investigator lane are presses.</text>
 <rect x="96" y="142" width="1652" height="268" fill="#F4F8F6" stroke="#CDD4D0"/>
 <rect x="8" y="142" width="88" height="268" fill="#0F6B5B" stroke="#CDD4D0"/>
 <g transform="translate(52,276.0) rotate(-90)">
@@ -20,12 +20,12 @@
 <text text-anchor="middle" fill="#FFFFFF" font-weight="700" font-size="16" y="-6">Deterministic code</text>
 <text text-anchor="middle" fill="#FFFFFF" font-size="12.5" y="14">gates, calculators, checks</text></g>
 <rect x="96" y="96" width="1652" height="46" fill="#E8EEEA" stroke="#CDD4D0"/>
-<text x="922.0" y="125" text-anchor="middle" font-size="16" font-weight="700" fill="#0F6B5B">Context and aims</text>
+<text x="922.0" y="125" text-anchor="middle" font-size="16" font-weight="700" fill="#0F6B5B">Study context, and Phase 1: question and aims</text>
 <path d="M228.0,328.0 L228.0,760.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
 <path d="M214.0,760.0 L214.0,666 L564.0,666 L564.0,344.0 L484.0,344.0 L484.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
 <path d="M464.0,328.0 L464.0,738.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
 <path d="M436.0,738.0 L436.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
-<text x="442.0" y="537.0" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">no</text>
+<text x="442.0" y="619.0" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">no</text>
 <path d="M450.0,738.0 L450.0,678 L686.0,678 L686.0,596.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
 <text x="556.0" y="672" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">yes</text>
 <path d="M672.0,492.0 L672.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
@@ -41,9 +41,9 @@
 <path d="M1492.0,812.0 L1520.0,812.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
 <path d="M1630.0,738.0 L1630.0,690 L800.0,690 L800.0,344.0 L720.0,344.0 L720.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
 <text x="1146.0" y="684" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">no</text>
-<line x1="1730.0" y1="812.0" x2="1752.0" y2="812.0" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
-<circle cx="1768.0" cy="812.0" r="14" fill="#FFFFFF" stroke="#2B3A35" stroke-width="1.6"/><text x="1768.0" y="817.0" text-anchor="middle" font-size="14" font-weight="700">1</text>
-<text x="1732.0" y="802.0" font-size="12.5" fill="#5F6B66">yes</text>
+<line x1="1740.0" y1="812.0" x2="1762.0" y2="812.0" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<circle cx="1778.0" cy="812.0" r="14" fill="#FFFFFF" stroke="#2B3A35" stroke-width="1.6"/><text x="1778.0" y="817.0" text-anchor="middle" font-size="14" font-weight="700">1</text>
+<text x="1796.0" y="817.0" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">yes</text>
 <rect x="116.0" y="224.0" width="196" height="104" rx="52.0" fill="#0F6B5B" stroke="#0F6B5B" stroke-width="1.8"/>
 <text x="214.0" y="263.25" text-anchor="middle" font-size="15" fill="#FFFFFF">Start: describe the</text>
 <text x="214.0" y="281.25" text-anchor="middle" font-size="15" fill="#FFFFFF">study in plain language</text>
@@ -105,8 +105,8 @@
 <text x="1394.0" y="826.25" text-anchor="middle" font-size="15" fill="#121A17">a summary citing an</text>
 <text x="1394.0" y="844.25" text-anchor="middle" font-size="15" fill="#121A17">unretrieved record</text>
 <polygon points="1630.0,738.0 1740.0,812.0 1630.0,886.0 1520.0,812.0" fill="#FFF7E6" stroke="#3A4A78" stroke-width="1.8"/>
-<text x="1630.0" y="782.9" text-anchor="middle" font-size="14" fill="#121A17">Question gate: 1 to</text>
-<text x="1630.0" y="799.9" text-anchor="middle" font-size="14" fill="#121A17">3 aims, each with a</text>
+<text x="1630.0" y="782.9" text-anchor="middle" font-size="14" fill="#121A17">Phase 1 gate: 1 to 3</text>
+<text x="1630.0" y="799.9" text-anchor="middle" font-size="14" fill="#121A17">aims, each with a</text>
 <text x="1630.0" y="816.9" text-anchor="middle" font-size="14" fill="#121A17">role, claim and</text>
 <text x="1630.0" y="833.9" text-anchor="middle" font-size="14" fill="#121A17">hypothesis if</text>
 <text x="1630.0" y="850.9" text-anchor="middle" font-size="14" fill="#121A17">confirmatory?</text>
