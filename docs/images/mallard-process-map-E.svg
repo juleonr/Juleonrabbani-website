@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="976" viewBox="0 0 1500 976" font-family="Helvetica, Arial, sans-serif" font-size="15">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B3A35"/></marker></defs>
+<rect width="1500" height="976" fill="#FFFFFF"/>
+<text x="96" y="34" font-size="22" font-weight="700" fill="#121A17">Panel E. Execution and finalisation</text>
+<text x="96" y="56" font-size="14" fill="#5F6B66">Time runs left to right. Parallelogram = investigator input · diamond = decision · rectangle = process · rounded = start or end · page shape = output.</text>
+<text x="96" y="76" font-size="14" fill="#5F6B66">Numbered circles continue on the next panel. Investigator inputs are tagged I1 to I11 and decisions D1 to D11, in the order they are made.</text>
+<rect x="96" y="142" width="1180" height="268" fill="#F4F8F6" stroke="#CDD4D0"/>
+<rect x="8" y="142" width="88" height="268" fill="#0F6B5B" stroke="#CDD4D0"/>
+<g transform="translate(52,276.0) rotate(-90)">
+<text text-anchor="middle" fill="#FFFFFF" font-weight="700" font-size="16" y="-6">Investigator</text>
+<text text-anchor="middle" fill="#FFFFFF" font-size="12.5" y="14">inputs and decisions</text></g>
+<rect x="96" y="410" width="1180" height="268" fill="#FBF6EC" stroke="#CDD4D0"/>
+<rect x="8" y="410" width="88" height="268" fill="#B07A16" stroke="#CDD4D0"/>
+<g transform="translate(52,544.0) rotate(-90)">
+<text text-anchor="middle" fill="#FFFFFF" font-weight="700" font-size="16" y="-6">Stochastic LLMs</text>
+<text text-anchor="middle" fill="#FFFFFF" font-size="12.5" y="14">draft and review</text></g>
+<rect x="96" y="678" width="1180" height="268" fill="#F1F3F7" stroke="#CDD4D0"/>
+<rect x="8" y="678" width="88" height="268" fill="#3A4A78" stroke="#CDD4D0"/>
+<g transform="translate(52,812.0) rotate(-90)">
+<text text-anchor="middle" fill="#FFFFFF" font-weight="700" font-size="16" y="-6">Deterministic code</text>
+<text text-anchor="middle" fill="#FFFFFF" font-size="12.5" y="14">gates, calculators, checks</text></g>
+<rect x="96" y="96" width="1180" height="46" fill="#E8EEEA" stroke="#CDD4D0"/>
+<text x="686.0" y="125" text-anchor="middle" font-size="16" font-weight="700" fill="#0F6B5B">Execution and finalisation</text>
+<circle cx="78.0" cy="544.0" r="14" fill="#FFFFFF" stroke="#2B3A35" stroke-width="1.6"/><text x="78.0" y="549.0" text-anchor="middle" font-size="14" font-weight="700">4</text>
+<line x1="94.0" y1="544.0" x2="116.0" y2="544.0" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<path d="M200.0,492.0 L200.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<path d="M312.0,276.0 L340.0,276.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<path d="M464.0,350.0 L464.0,738.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<path d="M450.0,738.0 L450.0,666 L328.0,666 L328.0,344.0 L248.0,344.0 L248.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="320.0" y="660" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">no</text>
+<path d="M450.0,738.0 L450.0,678 L812.0,678 L812.0,366.0 L720.0,366.0 L720.0,340.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="556.0" y="672" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">yes</text>
+<path d="M700.0,350.0 L700.0,492.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="706.0" y="425.0" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">yes</text>
+<path d="M796.0,276.0 L824.0,276.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="800.0" y="268.0" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">no</text>
+<path d="M686.0,492.0 L686.0,398 L922.0,398 L922.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<path d="M936.0,328.0 L936.0,738.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<path d="M908.0,738.0 L908.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="914.0" y="537.0" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">no</text>
+<path d="M1032.0,812.0 L1060.0,812.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="1036.0" y="804.0" font-size="12.5" fill="#3B4743" paint-order="stroke" stroke="#FFFFFF" stroke-width="4">yes</text>
+<path d="M1144.0,749.0 L1144.0,328.0" fill="none" stroke="#2B3A35" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="116.0" y="492.0" width="196" height="104" fill="#FFFFFF" stroke="#B07A16" stroke-width="1.8"/>
+<text x="214.0" y="522.25" text-anchor="middle" font-size="15" fill="#121A17">Draft step 5,</text>
+<text x="214.0" y="540.25" text-anchor="middle" font-size="15" fill="#121A17">approvals, team and</text>
+<text x="214.0" y="558.25" text-anchor="middle" font-size="15" fill="#121A17">cost, on its own after</text>
+<text x="214.0" y="576.25" text-anchor="middle" font-size="15" fill="#121A17">step 4</text>
+<polygon points="130.0,224.0 312.0,224.0 298.0,328.0 116.0,328.0" fill="#FFFFFF" stroke="#0F6B5B" stroke-width="1.8"/>
+<text x="214.0" y="246.9" text-anchor="middle" font-size="14" fill="#121A17">Execution fields,</text>
+<text x="214.0" y="263.9" text-anchor="middle" font-size="14" fill="#121A17">governance pathway,</text>
+<text x="214.0" y="280.9" text-anchor="middle" font-size="14" fill="#121A17">tasks with owners,</text>
+<text x="214.0" y="297.9" text-anchor="middle" font-size="14" fill="#121A17">timeline, costs,</text>
+<text x="214.0" y="314.9" text-anchor="middle" font-size="14" fill="#121A17">currency</text>
+<rect x="116.0" y="201.0" width="34" height="20" rx="4" fill="#0F6B5B"/><text x="133.0" y="216.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">I10</text>
+<polygon points="450.0,202.0 560.0,276.0 450.0,350.0 340.0,276.0" fill="#FFF7E6" stroke="#0F6B5B" stroke-width="1.8"/>
+<text x="450.0" y="263.25" text-anchor="middle" font-size="15" fill="#121A17">Readiness: ready,</text>
+<text x="450.0" y="281.25" text-anchor="middle" font-size="15" fill="#121A17">conditional, or</text>
+<text x="450.0" y="299.25" text-anchor="middle" font-size="15" fill="#121A17">infeasible?</text>
+<rect x="340.0" y="179.0" width="34" height="20" rx="4" fill="#0F6B5B"/><text x="357.0" y="194.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">D10</text>
+<polygon points="450.0,738.0 560.0,812.0 450.0,886.0 340.0,812.0" fill="#FFF7E6" stroke="#3A4A78" stroke-width="1.8"/>
+<text x="450.0" y="782.9" text-anchor="middle" font-size="14" fill="#121A17">Execution gate: dates</text>
+<text x="450.0" y="799.9" text-anchor="middle" font-size="14" fill="#121A17">ordered, no dependency</text>
+<text x="450.0" y="816.9" text-anchor="middle" font-size="14" fill="#121A17">cycles, every cost</text>
+<text x="450.0" y="833.9" text-anchor="middle" font-size="14" fill="#121A17">priced or marked not</text>
+<text x="450.0" y="850.9" text-anchor="middle" font-size="14" fill="#121A17">established?</text>
+<polygon points="686.0,202.0 796.0,276.0 686.0,350.0 576.0,276.0" fill="#FFF7E6" stroke="#0F6B5B" stroke-width="1.8"/>
+<text x="686.0" y="254.25" text-anchor="middle" font-size="15" fill="#121A17">Request the write-up?</text>
+<text x="686.0" y="272.25" text-anchor="middle" font-size="15" fill="#121A17">Request code, in which</text>
+<text x="686.0" y="290.25" text-anchor="middle" font-size="15" fill="#121A17">languages, reviewed</text>
+<text x="686.0" y="308.25" text-anchor="middle" font-size="15" fill="#121A17">draft or not requested?</text>
+<rect x="576.0" y="179.0" width="34" height="20" rx="4" fill="#0F6B5B"/><text x="593.0" y="194.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">D11</text>
+<rect x="588.0" y="492.0" width="196" height="104" fill="#FFFFFF" stroke="#B07A16" stroke-width="1.8"/>
+<text x="686.0" y="514.9" text-anchor="middle" font-size="14" fill="#121A17">On request: write-up</text>
+<text x="686.0" y="531.9" text-anchor="middle" font-size="14" fill="#121A17">with PubMed-resolved</text>
+<text x="686.0" y="548.9" text-anchor="middle" font-size="14" fill="#121A17">references; code in R,</text>
+<text x="686.0" y="565.9" text-anchor="middle" font-size="14" fill="#121A17">Python, SAS, Stata,</text>
+<text x="686.0" y="582.9" text-anchor="middle" font-size="14" fill="#121A17">never executed</text>
+<polygon points="838.0,224.0 1020.0,224.0 1006.0,328.0 824.0,328.0" fill="#FFFFFF" stroke="#0F6B5B" stroke-width="1.8"/>
+<text x="922.0" y="254.25" text-anchor="middle" font-size="15" fill="#121A17">Name the reconciler;</text>
+<text x="922.0" y="272.25" text-anchor="middle" font-size="15" fill="#121A17">review summary with</text>
+<text x="922.0" y="290.25" text-anchor="middle" font-size="15" fill="#121A17">remaining limitations;</text>
+<text x="922.0" y="308.25" text-anchor="middle" font-size="15" fill="#121A17">choose export format</text>
+<rect x="824.0" y="201.0" width="34" height="20" rx="4" fill="#0F6B5B"/><text x="841.0" y="216.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">I11</text>
+<polygon points="922.0,738.0 1032.0,812.0 922.0,886.0 812.0,812.0" fill="#FFF7E6" stroke="#3A4A78" stroke-width="1.8"/>
+<text x="922.0" y="790.25" text-anchor="middle" font-size="15" fill="#121A17">Finalisation gate: no</text>
+<text x="922.0" y="808.25" text-anchor="middle" font-size="15" fill="#121A17">open review comments,</text>
+<text x="922.0" y="826.25" text-anchor="middle" font-size="15" fill="#121A17">nothing pending, code</text>
+<text x="922.0" y="844.25" text-anchor="middle" font-size="15" fill="#121A17">disposition recorded?</text>
+<path d="M1060.0,749.0 H1256.0 V865.0 Q1207.0,853.0 1158.0,867.0 T1060.0,865.0 Z" fill="#EEF5F2" stroke="#3A4A78" stroke-width="1.8"/>
+<text x="1158.0" y="782.9" text-anchor="middle" font-size="14" fill="#121A17">Export: text, HTML,</text>
+<text x="1158.0" y="799.9" text-anchor="middle" font-size="14" fill="#121A17">Word or ZIP, with audit</text>
+<text x="1158.0" y="816.9" text-anchor="middle" font-size="14" fill="#121A17">table, gate status,</text>
+<text x="1158.0" y="833.9" text-anchor="middle" font-size="14" fill="#121A17">assumptions and review</text>
+<text x="1158.0" y="850.9" text-anchor="middle" font-size="14" fill="#121A17">record</text>
+<rect x="1060.0" y="224.0" width="196" height="104" rx="52.0" fill="#0F6B5B" stroke="#0F6B5B" stroke-width="1.8"/>
+<text x="1158.0" y="263.25" text-anchor="middle" font-size="15" fill="#FFFFFF">End: plan delivered for</text>
+<text x="1158.0" y="281.25" text-anchor="middle" font-size="15" fill="#FFFFFF">a statistician and the</text>
+<text x="1158.0" y="299.25" text-anchor="middle" font-size="15" fill="#FFFFFF">IRB to check</text>
+</svg>

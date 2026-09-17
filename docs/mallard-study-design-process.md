@@ -132,6 +132,59 @@ Read top to bottom: the two reviews are the only concurrent step, the determinis
 
 Sources: src/validate.js, src/estimand.js, src/pipeline.js, src/fixup.js, src/workspaceFlow.js, src/workspaceDeliverables.js, netlify/functions/consult-work-background.js and docs/pipeline/pipeline.html in the Ask-Mallard repository.
 
+## Process map: who decides what
+
+The investigator makes 11 typed inputs and 11 decisions on the way to an exported plan, and none of them is acted on by a model alone. The map below places every activity in one of three lanes: the investigator, who supplies facts and chooses; the stochastic language models, which draft and review and whose output varies from run to run; and the deterministic code, whose 11 gates and checks are the only reproducible part of the process and the only path to the export. Read each panel left to right; a numbered circle continues on the next panel, and the tags I1 to I11 and D1 to D11 index the table at the end of this section.
+
+Shapes follow the usual process-mapping convention: a parallelogram is data the investigator enters, a diamond is a decision, a rectangle is a process step, a rounded shape is the start or end, and the page shape is an output.
+
+![Panel A. Context and aims](images/mallard-process-map-A.png)
+
+Panel A. The study description and the nine context fields are typed before any model call. The model proposes aims with placeholders; the investigator fills them, sets each aim's role, and rules on the aims check. The code strips identifiers, resolves citations against PubMed and holds the question gate.
+
+![Panel B. Feasibility and the design brief](images/mallard-process-map-B.png)
+
+Panel B. Feasibility answers carry a basis and an owner before the brief is drafted. The brief is reviewed by two labs and checked by code before the investigator approves it or picks an alternative. The conflict gate compares the typed context with the chosen design and refuses to proceed until the investigator says which statement is true.
+
+![Panel C. Design confirmation and the first plan steps](images/mallard-process-map-C.png)
+
+Panel C. The estimand and every variable are defined by the investigator, with the model suggesting but never choosing an adjustment set. The design gate is deterministic. The credit is spent here, and the model's own questions come back to the investigator as pinned facts.
+
+![Panel D. Analysis and sizing](images/mallard-process-map-D.png)
+
+Panel D. The investigator writes the analysis contract and sizing assumptions and presses Calculate; the code recomputes the number and runs the 37 checks that can withhold it. Multiplicity, data requests and count reconciliation are investigator decisions the analysis gate then verifies. The fixup form is the one loop back to the models, and it costs a credit.
+
+![Panel E. Execution and finalisation](images/mallard-process-map-E.png)
+
+Panel E. Execution fields, readiness and the request for a write-up or code are investigator decisions. The finalisation gate requires a named reconciler and no open review comments before the code assembles the export.
+
+| Tag | What the investigator supplies or decides | Panel | Acted on next by |
+| --- | --- | --- | --- |
+| I1 | Nine context fields | A | Code: all-answered gate; models: prompt context |
+| I2 | Aims edited, placeholders filled, role and intended claim per aim | A | Investigator D1; code: question gate |
+| D1 | Any aim confirmatory? | A | Investigator I3; later D7 |
+| I3 | Hypothesis for each confirmatory aim | A | Model: aims check |
+| D2 | Apply each aims-check finding, keep own wording with a reason, or skip | A | Model: literature scan |
+| I4 | Seven feasibility answers | B | Investigator D3 |
+| D3 | Basis per answer: checked result, planning assumption or task | B | Code: feasibility gate; a task blocks design until closed |
+| D4 | Approve the recommended design or pick an alternative | B | Model: brief re-run if alternative; code: conflict gate if approved |
+| I5 | Answer to a context conflict | B | Code: conflict gate re-run |
+| D5 | Each design condition confirmed, to check, or not available | B | Investigator I6 |
+| I6 | Estimand, variables, roles, measurement settings, relationships | C | Code: design gate |
+| D6 | Request a biostatistician design review | C | Code: review pinned to the decision basis |
+| I7 | Answers to the model's step questions | C | Models: pinned facts in every later step |
+| I8 | Analysis contract, sizing assumptions, calculator inputs | C, D | Code: recompute N, 37 checks |
+| D7 | Multiplicity family, method and sizing implication, if any aim is confirmatory | D | Code: analysis gate |
+| D8 | Data beyond the map: add to the map or remove from the analysis | D | Code: analysis gate |
+| I9 | Count reconciliation rows | D | Code: established or provisional |
+| D9 | Send the fixup form as one revision | D | Models: guarded patch and adjudication, one credit |
+| I10 | Execution fields, governance, tasks, timeline, costs | E | Investigator D10 |
+| D10 | Readiness: ready, conditional or infeasible | E | Code: execution gate; infeasible blocks the phase |
+| D11 | Request the write-up and code, languages and disposition | E | Models: steps 6 and 7 on request |
+| I11 | Reconciler, review summary, export format | E | Code: finalisation gate and export |
+
+The map is generated from a node list in the repository (docs/images/mallard-process-map.py) so it can be regenerated when the flow changes; the SVG sources sit beside the PNGs.
+
 ## Where Mallard does not yet help
 
 Mallard sizes fifteen design families deterministically, describes many more without a number, and says nothing useful about a further group. Its own methods page lists the refusals: IRB determinations, final interpretation of results, a sample size it cannot justify, replacing collaborators, and citations written from memory. The gaps below are taken from the code, the Learn library and the roadmap notes, not inferred.
