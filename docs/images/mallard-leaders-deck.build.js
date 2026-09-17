@@ -194,23 +194,48 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
     stepCard(s, x, 1.75, w, lab, head, rich(body, 12), { headH: 1.08, bodyH: 3.25, headSize: 19, bodySize: 12 });
   });
   band(s, "The one loop back from the code lane to the models is an investigator's decision edit, and its result waits for acceptance.", 6.35);
-  s.addNotes("Two minutes. This is the governance slide. The lanes are the answer to \"where is the AI in this\": it drafts and reviews; it does not decide what is printed. The full swimlane map with every decision is in the document; the next slide shows one panel of it.");
+  s.addNotes("Two minutes. This is the governance slide. The lanes are the answer to \"where is the AI in this\": it drafts and reviews; it does not decide what is printed. The next six slides walk the swimlane map panel by panel; the document has the same map with every tag explained.");
 }
 
-// ---------------------------------------------------------------- 8. process map panel
+// ---------------------------------------------------------------- 8. process map, six panels
 {
-  const s = pres.addSlide();
-  title(s, "One panel of the process map: revision inside Phase 4", "Parallelogram = investigator input · diamond = decision · rectangle = process · numbered circle = continues on another panel");
-  s.addImage({ path: "panelE.png", x: 0.62, y: 1.72, w: 10.3, h: 5.12 });
-  s.addText([
-    { text: "Read it left to right.", options: { bold: true, breakLine: true } },
-    { text: "Multiplicity and counts are investigator decisions. An edit is previewed, affected work is marked stale, an update regenerates only that work, and the result waits for acceptance.", options: { breakLine: true } },
-    { text: "\nSix panels cover the whole flow, tagged I1 to I11 and D1 to D11.", options: { color: C.muted } },
-  ], { x: 11.1, y: 1.75, w: 1.9, h: 5.3, fontFace: B, fontSize: 10.5, color: C.ink, isTextBox: true, margin: 0, valign: "top", paraSpaceAfter: 6 });
-  s.addNotes("One minute. Do not read the panel. Point at the three lanes and the fixup diamond, then move on. Offer the document for the other four panels.");
+  const legend = "Parallelogram = investigator input · diamond = decision · rectangle = process · numbered circle = continues on the next panel";
+  const panels = [
+    ["A", "study context and Phase 1 aims",
+      "Context is pinned before anything is drafted.",
+      "Population, setting and constraints are typed facts, and identifying detail is stripped before any model sees the text. The question step asks its clarifying questions, and the investigator confirms the aims at the Phase 1 gate."],
+    ["B", "feasibility, estimand, variables, brief",
+      "Feasibility is entered as rows, not prose.",
+      "Recruitment, follow-up and resource limits become facts the code can check against. Phase 3 then settles the aim, hypothesis, estimand and variables before the design brief is generated."],
+    ["C", "the design decision and its gate",
+      "The design is the investigator's decision.",
+      "The brief is drafted and reviewed, its conditions are appended as feasibility rows, and the investigator picks the design and confirms the gate. Nothing downstream can generate until this gate is confirmed."],
+    ["D", "build the study, draft the analyses",
+      "Two separate presses, one plan credit.",
+      "Build study spends the plan credit and runs the deterministic sizing calculators. Draft analyses is a second press, and the analysis brief gets both the model review and the deterministic checks."],
+    ["E", "shared decisions and revision",
+      "Revision is previewed, not silent.",
+      "Multiplicity and counts are investigator decisions. An edit shows its impact, affected work is marked stale, an update regenerates only that work, and the result waits for acceptance or discard."],
+    ["F", "execution and finalisation",
+      "Execution runs on request, and the export is gated.",
+      "Execution is a press, not an automatic step. The write-up and code follow, references are verified against PubMed, and the finalisation gate holds the export until every blocking finding is cleared."],
+  ];
+  const fit = { A: [10.3, 4.9], B: [9.22, 5.15], C: [7.82, 5.15], D: [9.22, 5.15], E: [9.43, 5.15], F: [9.03, 5.15] };
+  panels.forEach(([id, name, head, body], i) => {
+    const s = pres.addSlide();
+    title(s, "Process map " + (i + 1) + " of 6: " + name, legend);
+    const [w, h] = fit[id];
+    s.addImage({ path: "panel" + id + ".png", x: 0.62, y: 1.72, w, h });
+    s.addText([
+      { text: head, options: { bold: true, breakLine: true } },
+      { text: body, options: { breakLine: true } },
+      { text: "\nTags I1 to I11 mark investigator inputs and D1 to D11 decisions, in the order they are asked.", options: { color: C.muted } },
+    ], { x: 11.1, y: 1.75, w: 1.9, h: 5.3, fontFace: B, fontSize: 10.5, color: C.ink, isTextBox: true, margin: 0, valign: "top", paraSpaceAfter: 6 });
+    s.addNotes("Thirty seconds. Do not read the panel. Point at the three lanes and the one thing in the sidebar, then move on. If time is short, show panel 5 (revision) only and treat the others as an appendix.");
+  });
 }
 
-// ---------------------------------------------------------------- 9. the eleven decisions
+// ---------------------------------------------------------------- 9-14 were the map; 15. the eleven decisions
 {
   const s = pres.addSlide();
   title(s, "The eleven decisions an investigator makes", "In the order they are asked, and who acts on each one next");
@@ -277,7 +302,7 @@ const rich = (pairs, fs = 9, leadColor = C.green) => pairs.flatMap(([lead, text]
   });
   s.addShape(pres.shapes.RECTANGLE, { x: 0.85, y: 6.15, w: 11.6, h: 0.02, fill: { color: C.mintText }, line: { color: C.mintText } });
   s.addText("Full write-up, process map and the appendix of every decision: Mallard Study Design Process (shared Google Doc).", { x: 0.85, y: 6.35, w: 11.6, h: 0.45, fontFace: B, fontSize: 15, bold: true, color: C.white, isTextBox: true, margin: 0, valign: "middle" });
-  s.addNotes("Two minutes, then questions. Restate the three points. Point to the document for the five-panel map and Appendix A. Agree a next step and a date before leaving.");
+  s.addNotes("Two minutes, then questions. Restate the three points. Point to the document for the six-panel map and Appendix A. Agree a next step and a date before leaving.");
 }
 
 pres.writeFile({ fileName: "Mallard Study Design Process - leaders deck.pptx" }).then((f) => console.log("wrote", f));
