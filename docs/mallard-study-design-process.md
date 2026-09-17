@@ -81,7 +81,7 @@ Sources: src/context.js, src/workspaceFlow.js, src/aimsAnalysis.js, src/variable
 
 ## The feedback loop: review, checks and revision
 
-A generated step is never accepted as drafted. It passes through two independent model reviews, one guarded corrective revision, an adjudicator that judges but never edits, and then the deterministic layer, which alone decides what may be printed. The investigator closes the loop by answering what only they can know, and each answer costs one revision.
+A generated section is never accepted as drafted. It passes through two independent model reviews, one guarded corrective revision, an adjudicator that judges but never edits, and then the deterministic layer, which alone decides what may be printed. The investigator closes the loop by editing a decision, updating the sections that depend on it, and accepting or discarding what comes back.
 
 ```mermaid
 flowchart TD
@@ -104,7 +104,7 @@ flowchart TD
   L -- gates confirmed --> M[Six workspace gates<br/>then export with review record]
 ```
 
-Read top to bottom: the two reviews are the only concurrent step, the deterministic layer sits below every model and cannot be overruled by one, and the loop back to the draft is driven by the investigator's answers, not by the models re-trying.
+Read top to bottom: the two reviews are the only concurrent step, the deterministic layer sits below every model and cannot be overruled by one, and the loop back to a draft is driven by the investigator's decision edits and explicit acceptance, not by the models re-trying.
 
 **Two model reviews, merged worst case.** Each reviewer returns a capped list of ranked issues plus a verdict on seven safety domains: design matches question, estimand matches analysis, sizing matches design and estimand and analysis, clustering handled, randomisation claims supported, missing data coherent, causal adjustment coherent. The domains are answered outside the issue budget because a ranking drops whatever came fifth without saying so. An unanswered domain is recorded as unknown, never as pass, and a concern reaches the revision even without an issue slot. Only the design brief and the analysis step get this review; every other step gets the repair pass and the deterministic checks.
 
