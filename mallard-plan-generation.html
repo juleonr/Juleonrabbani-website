@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Mallard Plans — Juleon Rabbani, DrPH</title>
+    <meta name="description" content="How Ask Mallard turns a clinician's question into a study plan: define the estimand, match it against a tested code library, then recommend a design with alternatives.">
+    <meta name="color-scheme" content="light dark">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            color-scheme: light dark;
+            --bg: #f7f3ee;
+            --bg-alt: #efe9e0;
+            --text: #1a1814;
+            --text-muted: #6b6459;
+            --accent: #7a4f2e;
+            --accent-light: #b5814f;
+            --border: #d8cfc4;
+            --white: #fdfbf8;
+            --nav-bg: rgba(247, 243, 238, 0.93);
+            --match: #0f6b5b;
+            --match-bg: rgba(15, 107, 91, 0.08);
+            --miss: #a0442c;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #141210;
+                --bg-alt: #1c1916;
+                --text: #ede8df;
+                --text-muted: #9a9088;
+                --accent: #c4895a;
+                --accent-light: #d4a878;
+                --border: #2e2924;
+                --white: #1c1916;
+                --nav-bg: rgba(20, 18, 16, 0.93);
+                --match: #5cc3a6;
+                --match-bg: rgba(92, 195, 166, 0.1);
+                --miss: #e08a6f;
+            }
+        }
+
+        [data-theme="dark"] {
+            --bg: #141210;
+            --bg-alt: #1c1916;
+            --text: #ede8df;
+            --text-muted: #9a9088;
+            --accent: #c4895a;
+            --accent-light: #d4a878;
+            --border: #2e2924;
+            --white: #1c1916;
+            --nav-bg: rgba(20, 18, 16, 0.93);
+            --match: #5cc3a6;
+            --match-bg: rgba(92, 195, 166, 0.1);
+            --miss: #e08a6f;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f3ee;
+            --bg-alt: #efe9e0;
+            --text: #1a1814;
+            --text-muted: #6b6459;
+            --accent: #7a4f2e;
+            --accent-light: #b5814f;
+            --border: #d8cfc4;
+            --white: #fdfbf8;
+            --nav-bg: rgba(247, 243, 238, 0.93);
+            --match: #0f6b5b;
+            --match-bg: rgba(15, 107, 91, 0.08);
+            --miss: #a0442c;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        code {
+            font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+            font-size: 0.82em;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            padding: 0.05em 0.35em;
+            border-radius: 3px;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 3rem;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+
+        .nav-back {
+            font-size: 0.74rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+        .nav-back .short { display: none; }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, border-color 0.2s;
+            padding: 0;
+        }
+        .theme-toggle:hover { color: var(--accent); border-color: var(--accent-light); }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 10rem 3rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .page-header h1 em { font-style: italic; color: var(--accent); }
+
+        .page-header-desc {
+            margin-top: 1.5rem;
+            max-width: 600px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .container { max-width: 960px; margin: 0 auto; }
+
+        /* PIPELINE OVERVIEW */
+        .pipeline {
+            padding: 4rem 3rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-alt);
+        }
+
+        .stages {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .stage {
+            position: relative;
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 1.5rem 1.25rem 1.25rem;
+        }
+
+        .stage + .stage::before {
+            content: '→';
+            position: absolute;
+            left: -1.55rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-light);
+            font-size: 1.1rem;
+        }
+
+        .stage.is-match { border-color: var(--match); }
+
+        .stage-num {
+            font-family: var(--font-display);
+            font-style: italic;
+            color: var(--accent-light);
+            font-size: 0.95rem;
+        }
+
+        .stage h3 {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 500;
+            line-height: 1.15;
+            margin: 0.25rem 0 0.75rem;
+        }
+
+        .stage-io { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+        .stage-io dt {
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-top: 0.6rem;
+        }
+        .stage-io dd { margin: 0.1rem 0 0; }
+
+        .pipeline-note {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 720px;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 5rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .section.alt { background: var(--bg-alt); }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            color: var(--accent-light);
+            font-style: italic;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .lede {
+            font-size: 0.98rem;
+            max-width: 680px;
+            margin-bottom: 2.5rem;
+        }
+
+        .sub-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin: 2.5rem 0 1rem;
+        }
+
+        /* QUESTION */
+        .question-card {
+            border-left: 3px solid var(--accent);
+            padding: 1.25rem 1.5rem;
+            background: var(--white);
+            font-family: var(--font-display);
+            font-size: clamp(1.35rem, 3vw, 1.8rem);
+            font-style: italic;
+            line-height: 1.3;
+            max-width: 760px;
+        }
+
+        .question-meta { margin-top: 0.75rem; font-size: 0.82rem; color: var(--text-muted); max-width: 760px; }
+
+        .bullets { list-style: none; max-width: 720px; }
+        .bullets li {
+            padding: 0.6rem 0 0.6rem 1.4rem;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            font-size: 0.9rem;
+        }
+        .bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 1.15rem;
+            width: 6px; height: 6px;
+            background: var(--accent-light);
+        }
+
+        /* ESTIMAND */
+        .estimand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .field {
+            background: var(--white);
+            padding: 0.9rem 1rem;
+            min-width: 0;
+        }
+
+        .field.typed { background: var(--match-bg); }
+        .section.alt .field.typed { background: color-mix(in srgb, var(--white) 88%, var(--match)); }
+
+        .field-name {
+            font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .field.typed .field-name::after {
+            content: 'gate';
+            font-family: var(--font-body);
+            font-size: 0.58rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--match);
+            border: 1px solid var(--match);
+            padding: 0 0.3rem;
+            align-self: center;
+        }
+
+        .field-value { font-size: 0.9rem; margin-top: 0.2rem; overflow-wrap: anywhere; }
+
+        .legend-line { margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 0.5rem; align-items: center; }
+        .swatch { display: inline-block; width: 12px; height: 12px; background: var(--match-bg); border: 1px solid var(--match); }
+
+        /* FUNNEL FIGURE */
+        figure { margin: 0; }
+        .funnel svg { width: 100%; height: auto; display: block; color: var(--text); }
+        .funnel svg.tall { display: none; max-width: 420px; margin: 0 auto; }
+        figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: var(--text-muted); max-width: 720px; }
+
+        /* GATE TABLE */
+        .table-wrap { overflow-x: auto; border: 1px solid var(--border); background: var(--white); }
+
+        table.gate {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 640px;
+            font-size: 0.82rem;
+        }
+
+        .gate th, .gate td {
+            padding: 0.7rem 0.8rem;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .gate thead th {
+            font-weight: 400;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+            background: var(--bg-alt);
+        }
+
+        .gate thead th .need { display: block; font-family: var(--font-body); color: var(--text); font-size: 0.78rem; margin-top: 0.15rem; }
+
+        .gate th[scope="row"], .gate thead th:first-child { text-align: left; }
+        .gate th[scope="row"] { font-weight: 400; }
+        .gate th[scope="row"] { min-width: 12rem; }
+        .gate th[scope="row"] code { font-size: 0.78em; white-space: nowrap; }
+
+        .ok { color: var(--match); font-weight: 500; }
+        .no { color: var(--miss); font-weight: 500; }
+        .no small, .ok small { display: block; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); }
+
+        .gate tr.pass th[scope="row"], .gate tr.pass td { background: var(--match-bg); }
+
+        .verdict {
+            font-size: 0.66rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.45rem;
+            border: 1px solid currentColor;
+            white-space: nowrap;
+        }
+
+        .rules {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .rule h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.35rem;
+        }
+        .rule p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* DESIGN */
+        .recommended {
+            border: 1px solid var(--match);
+            background: var(--white);
+            padding: 1.75rem;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.5rem;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            margin-right: 0.35rem;
+            margin-bottom: 0.35rem;
+        }
+        .badge.rec { color: var(--match); border-color: var(--match); }
+
+        .recommended h3, .alt-card h4 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            line-height: 1.25;
+        }
+        .recommended h3 { font-size: 1.6rem; margin: 0.5rem 0 0.75rem; }
+        .recommended p { font-size: 0.9rem; max-width: 720px; }
+
+        .rec-analysis {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            font-size: 0.85rem;
+        }
+        .rec-analysis dt {
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+        }
+        .rec-analysis dd { margin: 0.2rem 0 0; }
+
+        .checks { list-style: none; counter-reset: c; margin-top: 0.5rem; }
+        .checks li {
+            counter-increment: c;
+            display: grid;
+            grid-template-columns: 2rem 1fr;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.86rem;
+        }
+        .checks li::before {
+            content: counter(c);
+            font-family: var(--font-display);
+            font-style: italic;
+            color: var(--accent-light);
+            font-size: 1.05rem;
+        }
+        .checks .if-not { display: block; color: var(--text-muted); font-size: 0.8rem; margin-top: 0.2rem; }
+
+        .ladder svg { width: 100%; height: auto; display: block; color: var(--text); }
+        .ladder svg.tall { display: none; max-width: 380px; }
+
+        .alts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .alt-card {
+            border: 1px solid var(--border);
+            background: var(--white);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .alt-card h4 { font-size: 1.15rem; margin: 0.4rem 0 0.6rem; }
+        .alt-card p { font-size: 0.82rem; color: var(--text-muted); flex: 1; }
+        .alt-card .when { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-light); display: block; margin-bottom: 0.2rem; }
+
+        .closing {
+            padding: 4rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .closing p { max-width: 680px; font-size: 0.9rem; color: var(--text-muted); }
+        .closing p + p { margin-top: 0.9rem; }
+        .closing a { color: var(--accent); }
+
+        /* FOOTER */
+        footer {
+            padding: 1.75rem 3rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-name { font-family: var(--font-display); font-size: 0.95rem; font-style: italic; color: var(--text-muted); }
+        .footer-copy { font-size: 0.73rem; color: var(--text-muted); opacity: 0.55; }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        @media (max-width: 900px) {
+            .stages { grid-template-columns: 1fr 1fr; }
+            .stage:nth-child(3)::before { display: none; }
+            .rules, .alts { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 1rem; }
+            .nav-back .long { display: none; }
+            .nav-back .short { display: inline; }
+            .page-header { padding: 8rem 1rem 3rem; }
+            .pipeline, .section, .closing { padding: 3.5rem 1rem; }
+            .stages { grid-template-columns: 1fr; gap: 1.75rem; }
+            .stage + .stage::before, .stage:nth-child(3)::before {
+                display: block;
+                content: '↓';
+                left: 50%;
+                top: -1.45rem;
+                transform: translateX(-50%);
+            }
+            .rec-analysis { grid-template-columns: 1fr; }
+            .funnel svg.wide { display: none; }
+            .funnel svg.tall { display: block; }
+            .ladder svg.wide { display: none; }
+            .ladder svg.tall { display: block; }
+            .recommended { padding: 1.25rem; }
+            .section-header { gap: 1rem; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem 1rem; }
+        }
+    </style>
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                if (saved) document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-brand">Juleon Rabbani</a>
+        <div class="nav-right">
+            <a href="index.html" class="nav-back">← <span class="long">Back to main site</span><span class="short">Home</span></a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <span class="theme-icon">◐</span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <p class="eyebrow">Ask Mallard · How a plan is generated</p>
+            <h1>From a question<br>to a <em>design</em></h1>
+            <p class="page-header-desc">Mallard does not start by choosing a study design. It first pins down exactly what the question is asking for, as a typed estimand. It then looks for methods in a tested code library that can estimate that quantity. Only after that does it recommend a design and set out the alternatives.</p>
+        </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="pipeline" aria-labelledby="overview-title">
+        <div class="container">
+            <p class="eyebrow" id="overview-title">The four stages</p>
+            <ol class="stages">
+                <li class="stage reveal">
+                    <span class="stage-num">01</span>
+                    <h3>Question</h3>
+                    <dl class="stage-io">
+                        <dt>In</dt><dd>A clinician's question, in plain language, and the data they have</dd>
+                        <dt>Out</dt><dd>A question with the gaps that block planning closed</dd>
+                    </dl>
+                </li>
+                <li class="stage reveal">
+                    <span class="stage-num">02</span>
+                    <h3>Estimand</h3>
+                    <dl class="stage-io">
+                        <dt>In</dt><dd>The question</dd>
+                        <dt>Out</dt><dd>Typed fields for target, population, contrast, outcome, measure, horizon and structure</dd>
+                    </dl>
+                </li>
+                <li class="stage is-match reveal">
+                    <span class="stage-num">03</span>
+                    <h3>Library match</h3>
+                    <dl class="stage-io">
+                        <dt>In</dt><dd>The typed estimand, plus 86 tested methods</dd>
+                        <dt>Out</dt><dd>The methods that match every typed field, or an explicit “not covered”</dd>
+                    </dl>
+                </li>
+                <li class="stage reveal">
+                    <span class="stage-num">04</span>
+                    <h3>Design + alternatives</h3>
+                    <dl class="stage-io">
+                        <dt>In</dt><dd>The estimand and the matched methods</dd>
+                        <dt>Out</dt><dd>A recommended design with checks, plus up to three alternatives ranked by evidence</dd>
+                    </dl>
+                </li>
+            </ol>
+            <p class="pipeline-note">The sections below follow one question through each stage. It is Mallard's own worked example, and the library results are read from the code library's metadata.</p>
+        </div>
+    </section>
+
+    <!-- 01 QUESTION -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Start with the question</h2>
+            </div>
+            <p class="lede">A clinician states what they want to know and what data they have. They do not need to name a design or a method.</p>
+            <blockquote class="question-card reveal">Does scheduling a follow-up appointment before discharge change 30-day unplanned readmission?</blockquote>
+            <p class="question-meta">Data: discharge and scheduling records from a hospital medicine service.</p>
+
+            <p class="sub-label">What happens here</p>
+            <ul class="bullets">
+                <li>A readiness check lists what is still missing before a plan can be written. Anything the clinician has already answered is dropped from the list.</li>
+                <li>Mallard asks sharpening questions only when the answer would change the plan. For example: <em>does the scheduling system record when an appointment was created, or only when it takes place?</em></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 02 ESTIMAND -->
+    <section class="section alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Define the estimand</h2>
+            </div>
+            <p class="lede">The question is turned into an estimand: the exact quantity the study will estimate. Every field has a fixed vocabulary, so the rest of the pipeline can check it with code instead of interpreting prose.</p>
+
+            <div class="estimand-grid reveal" role="list" aria-label="Typed estimand for the readmission question">
+                <div class="field typed" role="listitem"><div class="field-name">target</div><div class="field-value">associational</div></div>
+                <div class="field" role="listitem"><div class="field-name">population</div><div class="field-value">Adults discharged alive from hospital medicine</div></div>
+                <div class="field" role="listitem"><div class="field-name">exposure</div><div class="field-value">Follow-up scheduled before discharge</div></div>
+                <div class="field" role="listitem"><div class="field-name">comparison</div><div class="field-value">No appointment scheduled before discharge</div></div>
+                <div class="field" role="listitem"><div class="field-name">outcome</div><div class="field-value">Time to first unplanned readmission</div></div>
+                <div class="field typed" role="listitem"><div class="field-name">outcomeType</div><div class="field-value">timeToEvent</div></div>
+                <div class="field typed" role="listitem"><div class="field-name">summaryMeasure</div><div class="field-value">hazardRatio</div></div>
+                <div class="field" role="listitem"><div class="field-name">timeHorizon</div><div class="field-value">30 days after discharge</div></div>
+                <div class="field" role="listitem"><div class="field-name">framing</div><div class="field-value">estimation</div></div>
+                <div class="field" role="listitem"><div class="field-name">assignment</div><div class="field-value">nonrandomized</div></div>
+                <div class="field typed" role="listitem"><div class="field-name">clustered</div><div class="field-value">false → independent sampling</div></div>
+                <div class="field typed" role="listitem"><div class="field-name">repeatedMeasures</div><div class="field-value">false</div></div>
+                <div class="field typed" role="listitem"><div class="field-name">competingEvents</div><div class="field-value">true (death within 30 days)</div></div>
+            </div>
+            <p class="legend-line"><span class="swatch" aria-hidden="true"></span>Shaded fields feed the library gate in stage 03. Each must match the method's metadata exactly.</p>
+
+            <p class="sub-label">Why this comes first</p>
+            <ul class="bullets">
+                <li><strong>Competing events</strong> is a single yes/no field, and it changes which methods are valid. A standard Cox model treats a patient who died as simply censored, which overstates readmission.</li>
+                <li>Later steps check themselves against this estimand. If the analysis plan drifts on the target, the summary measure, the framing, the assignment or the clustering, the drift is flagged and the sample size is withheld.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 03 LIBRARY MATCH -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Match the code library</h2>
+            </div>
+            <p class="lede">The Mallard code library has 86 analysis methods. Each has R and/or Python code that has been run against a fixture dataset and checked against expected output. Each method also declares the estimands it is valid for. A method qualifies only if it accepts every gate field of the estimand.</p>
+
+            <figure class="funnel reveal">
+                <svg class="wide" viewBox="0 0 900 250" role="img" aria-label="Of 86 library methods, 6 estimate a hazard ratio for a time-to-event outcome, and 2 of those also handle competing events with independent sampling: cause-specific Cox and Fine-Gray.">
+                    <defs>
+                        <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                    <!-- stage blocks: widths proportional-ish, centered vertically at y=125 -->
+                    <rect x="10" y="20" width="220" height="210" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
+                    <text x="120" y="112" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="56" fill="currentColor">86</text>
+                    <text x="120" y="142" text-anchor="middle" font-size="13" fill="currentColor" fill-opacity="0.7">methods in the library</text>
+                    <text x="120" y="162" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.55">78 run in both R and Python</text>
+
+                    <line x1="236" y1="125" x2="330" y2="125" stroke="currentColor" stroke-opacity="0.5" marker-end="url(#fa)"/>
+                    <text x="283" y="108" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.7">timeToEvent</text>
+                    <text x="283" y="148" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.7">hazardRatio</text>
+
+                    <rect x="336" y="55" width="200" height="140" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
+                    <text x="436" y="120" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="48" fill="currentColor">6</text>
+                    <text x="436" y="148" text-anchor="middle" font-size="13" fill="currentColor" fill-opacity="0.7">hazard-ratio models</text>
+
+                    <line x1="542" y1="125" x2="636" y2="125" stroke="#0f6b5b" stroke-width="1.5" marker-end="url(#fa)" style="color:#0f6b5b"/>
+                    <text x="589" y="108" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.7">competingEvents</text>
+                    <text x="589" y="148" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.7">independent</text>
+
+                    <rect x="642" y="75" width="248" height="100" fill="#0f6b5b" fill-opacity="0.1" stroke="#0f6b5b" stroke-width="1.5"/>
+                    <text x="680" y="140" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="48" fill="#1f8f78">2</text>
+                    <text x="712" y="112" font-size="13" fill="currentColor">cause-specific Cox</text>
+                    <text x="712" y="132" font-size="13" fill="currentColor">Fine-Gray</text>
+                    <text x="712" y="152" font-size="11" fill="currentColor" fill-opacity="0.6">exact matches</text>
+                </svg>
+                <svg class="tall" viewBox="0 0 360 430" role="img" aria-label="Of 86 library methods, 6 estimate a hazard ratio for a time-to-event outcome, and 2 of those also handle competing events with independent sampling: cause-specific Cox and Fine-Gray.">
+                    <defs>
+                        <marker id="fb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                    <rect x="20" y="10" width="320" height="110" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
+                    <text x="180" y="65" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="46" fill="currentColor">86</text>
+                    <text x="180" y="90" text-anchor="middle" font-size="14" fill="currentColor" fill-opacity="0.7">methods in the library</text>
+                    <text x="180" y="108" text-anchor="middle" font-size="12" fill="currentColor" fill-opacity="0.55">78 run in both R and Python</text>
+                    <line x1="180" y1="124" x2="180" y2="166" stroke="currentColor" stroke-opacity="0.5" marker-end="url(#fb)"/>
+                    <text x="192" y="150" font-size="12" fill="currentColor" fill-opacity="0.7">timeToEvent · hazardRatio</text>
+                    <rect x="60" y="172" width="240" height="90" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
+                    <text x="180" y="220" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="42" fill="currentColor">6</text>
+                    <text x="180" y="246" text-anchor="middle" font-size="14" fill="currentColor" fill-opacity="0.7">hazard-ratio models</text>
+                    <line x1="180" y1="266" x2="180" y2="308" stroke="#1f8f78" stroke-width="1.5" marker-end="url(#fb)"/>
+                    <text x="192" y="284" font-size="12" fill="currentColor" fill-opacity="0.7">competingEvents</text>
+                    <text x="192" y="300" font-size="12" fill="currentColor" fill-opacity="0.7">independent</text>
+                    <rect x="40" y="314" width="280" height="104" fill="#0f6b5b" fill-opacity="0.1" stroke="#0f6b5b" stroke-width="1.5"/>
+                    <text x="85" y="382" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="46" fill="#1f8f78">2</text>
+                    <text x="120" y="352" font-size="14" fill="currentColor">cause-specific Cox</text>
+                    <text x="120" y="374" font-size="14" fill="currentColor">Fine-Gray</text>
+                    <text x="120" y="396" font-size="12" fill="currentColor" fill-opacity="0.6">exact matches</text>
+                </svg>
+                <figcaption>Each arrow applies one set of gate fields. The first two fields narrow 86 methods to 6. The competing-events and sampling fields remove the standard Cox model and the case-cohort, nested case-control and time-varying variants, leaving 2.</figcaption>
+            </figure>
+
+            <p class="sub-label">The gate, field by field</p>
+            <div class="table-wrap reveal">
+                <table class="gate">
+                    <caption class="sr-only" style="position:absolute;left:-9999px">Library entries checked against the estimand's gate fields</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Library entry</th>
+                            <th scope="col">target<span class="need">associational</span></th>
+                            <th scope="col">outcomeType<span class="need">timeToEvent</span></th>
+                            <th scope="col">summaryMeasure<span class="need">hazardRatio</span></th>
+                            <th scope="col">competingEvents<span class="need">true</span></th>
+                            <th scope="col">sampling<span class="need">independent</span></th>
+                            <th scope="col">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pass">
+                            <th scope="row">Cause-specific Cox<br><code>cause-specific-cox</code></th>
+                            <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td>
+                            <td><span class="verdict ok">Match · R + Py</span></td>
+                        </tr>
+                        <tr class="pass">
+                            <th scope="row">Fine-Gray subdistribution<br><code>fine-gray-subdistribution</code></th>
+                            <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td>
+                            <td><span class="verdict ok">Match · R</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cox proportional hazards<br><code>cox-proportional-hazards</code></th>
+                            <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="no">✗<small>false only</small></td><td class="ok">✓</td>
+                            <td><span class="verdict no">Excluded</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Case-cohort weighted Cox<br><code>case-cohort-weighted-cox</code></th>
+                            <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="no">✗<small>false only</small></td><td class="no">✗<small>caseCohort</small></td>
+                            <td><span class="verdict no">Excluded</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kaplan–Meier + log-rank<br><code>kaplan-meier-logrank</code></th>
+                            <td class="ok">✓</td><td class="ok">✓</td><td class="no">✗<small>other</small></td><td class="no">✗<small>false only</small></td><td class="ok">✓</td>
+                            <td><span class="verdict no">Excluded</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="rules">
+                <div class="rule reveal">
+                    <h4>Exact, not nearest</h4>
+                    <p>Methods are not scored or ranked. An entry either accepts every gate field or it is excluded. The Cox model matches on four of five fields and is still excluded.</p>
+                </div>
+                <div class="rule reveal">
+                    <h4>No substitution</h4>
+                    <p>If no entry qualifies, the plan says the method is <em>not covered</em>. It does not quietly swap in a different estimand that the library happens to have.</p>
+                </div>
+                <div class="rule reveal">
+                    <h4>Code with provenance</h4>
+                    <p>The code shown is taken from the matched entry at a pinned library commit. It is labelled as adapted and not yet run on the user's data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 DESIGN -->
+    <section class="section alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Recommend a design, show the alternatives</h2>
+            </div>
+            <p class="lede">The recommended design is the one that answers the estimand with the data the clinician already has, using a method the library covers. The alternatives are shown next to it, each with what it costs and what it would let you claim.</p>
+
+            <article class="recommended reveal">
+                <span class="badge rec">Recommended</span><span class="badge">Adjusted association</span><span class="badge">Months</span><span class="badge">Existing records</span>
+                <h3>Retrospective cohort from discharge and scheduling records, with death as a competing risk</h3>
+                <p>The exposure is already recorded at discharge, and the outcome is recorded in the same system. A cohort can therefore answer the question from data that already exists, without paying to collect new data. Because the two groups differ systematically, the analysis adjusts for confounders, and the result is reported as an association rather than an effect.</p>
+                <dl class="rec-analysis">
+                    <div>
+                        <dt>Primary analysis · from the library</dt>
+                        <dd>Cause-specific Cox regression, reported as an adjusted hazard ratio</dd>
+                    </div>
+                    <div>
+                        <dt>Companion · from the library</dt>
+                        <dd>Fine-Gray regression for the cumulative incidence of readmission</dd>
+                    </div>
+                </dl>
+
+                <p class="sub-label">Design-fit checks to run before committing</p>
+                <ol class="checks">
+                    <li><span>At least 95% of appointments have a creation time before the discharge time.<span class="if-not">If not: restrict to reliable timestamps, or switch to the case-control design.</span></span></li>
+                    <li><span>Deaths recorded in the system are within 10% of an external death count.<span class="if-not">If not: report the cause-specific hazard only.</span></span></li>
+                    <li><span>At least 10 readmissions per covariate in the adjustment set.<span class="if-not">If not: widen the record window or reduce to a minimal sufficient set.</span></span></li>
+                </ol>
+            </article>
+
+            <p class="sub-label">Alternatives on the evidence ladder</p>
+            <figure class="ladder reveal">
+                <svg class="wide" viewBox="0 0 900 150" role="img" aria-label="Evidence ladder from describes to randomized. The recommended cohort, the case-control study and the before-and-after audit all support an adjusted association. Only the cluster-randomised trial reaches randomized evidence.">
+                    <line x1="60" y1="70" x2="840" y2="70" stroke="currentColor" stroke-opacity="0.35" stroke-width="2"/>
+                    <g font-size="12" fill="currentColor" text-anchor="middle">
+                        <circle cx="60" cy="70" r="5" fill="currentColor" fill-opacity="0.35"/>
+                        <text x="60" y="40" fill-opacity="0.6">describes</text>
+                        <circle cx="255" cy="70" r="5" fill="currentColor" fill-opacity="0.35"/>
+                        <text x="255" y="40" fill-opacity="0.6">association</text>
+                        <circle cx="450" cy="70" r="5" fill="currentColor" fill-opacity="0.35"/>
+                        <text x="450" y="40">adjusted association</text>
+                        <circle cx="645" cy="70" r="5" fill="currentColor" fill-opacity="0.35"/>
+                        <text x="645" y="40" fill-opacity="0.6">quasi-experimental</text>
+                        <circle cx="840" cy="70" r="5" fill="currentColor" fill-opacity="0.35"/>
+                        <text x="840" y="40">randomized</text>
+                    </g>
+                    <!-- options -->
+                    <circle cx="450" cy="70" r="11" fill="#0f6b5b" fill-opacity="0.15" stroke="#1f8f78" stroke-width="2"/>
+                    <text x="450" y="104" text-anchor="middle" font-size="12" fill="#1f8f78">Cohort (recommended)</text>
+                    <text x="450" y="122" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.65">+ case-control, + before/after audit</text>
+                    <circle cx="840" cy="70" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <text x="840" y="104" text-anchor="end" font-size="12" fill="currentColor">Cluster-randomised trial</text>
+                    <text x="840" y="122" text-anchor="end" font-size="11" fill="currentColor" fill-opacity="0.65">years · new data collection</text>
+                </svg>
+                <svg class="tall" viewBox="0 0 360 300" role="img" aria-label="Evidence ladder from describes to randomized. The recommended cohort, the case-control study and the before-and-after audit all support an adjusted association. Only the cluster-randomised trial reaches randomized evidence.">
+                    <line x1="40" y1="30" x2="40" y2="270" stroke="currentColor" stroke-opacity="0.35" stroke-width="2"/>
+                    <g font-size="13" fill="currentColor">
+                        <circle cx="40" cy="270" r="5" fill="currentColor" fill-opacity="0.35"/><text x="62" y="274" fill-opacity="0.6">describes</text>
+                        <circle cx="40" cy="210" r="5" fill="currentColor" fill-opacity="0.35"/><text x="62" y="214" fill-opacity="0.6">association</text>
+                        <circle cx="40" cy="150" r="5" fill="currentColor" fill-opacity="0.35"/><text x="62" y="146">adjusted association</text>
+                        <circle cx="40" cy="90" r="5" fill="currentColor" fill-opacity="0.35"/><text x="62" y="94" fill-opacity="0.6">quasi-experimental</text>
+                        <circle cx="40" cy="30" r="5" fill="currentColor" fill-opacity="0.35"/><text x="62" y="26">randomized</text>
+                    </g>
+                    <circle cx="40" cy="150" r="11" fill="#0f6b5b" fill-opacity="0.15" stroke="#1f8f78" stroke-width="2"/>
+                    <text x="62" y="165" font-size="12" fill="#1f8f78">Cohort (recommended)</text>
+                    <text x="62" y="181" font-size="11" fill="currentColor" fill-opacity="0.65">+ case-control, + before/after audit</text>
+                    <circle cx="40" cy="30" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <text x="62" y="45" font-size="12" fill="currentColor">Cluster-randomised trial</text>
+                    <text x="62" y="61" font-size="11" fill="currentColor" fill-opacity="0.65">years · new data collection</text>
+                </svg>
+                <figcaption>Three of the four designs support the same claim, an adjusted association. They differ in where the exposure data comes from and what can go wrong. Only allocating the change at random turns the result into a causal effect.</figcaption>
+            </figure>
+
+            <div class="alts">
+                <article class="alt-card reveal">
+                    <div><span class="badge">Adjusted association</span><span class="badge">About a year</span></div>
+                    <h4>Case-control, exposure abstracted from charts</h4>
+                    <p><span class="when">Wins when</span>The scheduling timestamp can't be trusted, and chart review is affordable for a sample of about 600 records but not for everyone.</p>
+                </article>
+                <article class="alt-card reveal">
+                    <div><span class="badge">Adjusted association</span><span class="badge">Months</span></div>
+                    <h4>Before-and-after audit around the scheduling change</h4>
+                    <p><span class="when">Wins when</span>The go-live date is known and records on both sides already exist. It describes a change around that date and makes no claim that the scheduling change caused it.</p>
+                </article>
+                <article class="alt-card reveal">
+                    <div><span class="badge">Randomized</span><span class="badge">Years</span></div>
+                    <h4>Cluster-randomised trial by ward</h4>
+                    <p><span class="when">Wins when</span>The scheduling change can be assigned to wards instead of observed. This is the only design here that can answer the question as a causal effect.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="closing">
+        <div class="container">
+            <p class="eyebrow">Why this order</p>
+            <p>Choosing a design before the estimand is fixed invites a familiar method that answers a slightly different question. Here, a standard Cox model would ignore deaths. Fixing the estimand first, and accepting only exact library matches, means the recommended design comes with analysis code that has been run and checked for the question actually asked.</p>
+            <p>Worked example adapted from <a href="https://github.com/Ask-Mallard/mallard-code-library" target="_blank" rel="noopener">Ask Mallard</a> and its open code library.</p>
+        </div>
+    </section>
+
+    <footer>
+        <span class="footer-name">Juleon Rabbani, DrPH</span>
+        <span class="footer-copy">© 2026 juleon.org</span>
+    </footer>
+
+    <script>
+        function getActiveTheme() {
+            return document.documentElement.getAttribute('data-theme') ||
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+        function updateIcon(theme) {
+            const icon = document.querySelector('.theme-icon');
+            if (icon) icon.textContent = theme === 'dark' ? '☀' : '☾';
+        }
+        function toggleTheme() {
+            const next = getActiveTheme() === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('theme', next); } catch (e) {}
+            updateIcon(next);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            updateIcon(getActiveTheme());
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
