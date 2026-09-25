@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How Mallard Plans — Juleon Rabbani, DrPH</title>
-    <meta name="description" content="How Ask Mallard turns a clinician's question into a study plan: define the estimand, match it against a tested code library, then recommend a design with alternatives.">
+    <title>How Mallard Will Plan — Juleon Rabbani, DrPH</title>
+    <meta name="description" content="The proposed revision to how Ask Mallard turns a clinician's question into a study plan: define and confirm the estimand, find the valid methods in a tested code library, then recommend a design with alternatives.">
     <meta name="color-scheme" content="light dark">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -192,8 +192,8 @@
         .stages {
             list-style: none;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
             position: relative;
         }
 
@@ -207,7 +207,7 @@
         .stage + .stage::before {
             content: '→';
             position: absolute;
-            left: -1.55rem;
+            left: -1.2rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--accent-light);
@@ -215,6 +215,92 @@
         }
 
         .stage.is-match { border-color: var(--match); }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.58rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 0.05rem 0.35rem;
+            border: 1px solid var(--accent-light);
+            color: var(--accent);
+            vertical-align: middle;
+            margin-left: 0.4rem;
+            font-style: normal;
+            font-family: var(--font-body);
+        }
+        .tag.lib { border-color: var(--match); color: var(--match); }
+
+        /* STATUS */
+        .status {
+            margin-top: 2rem;
+            max-width: 720px;
+            border: 1px solid var(--accent-light);
+            border-left-width: 3px;
+            padding: 0.9rem 1.1rem;
+            font-size: 0.85rem;
+            background: var(--white);
+        }
+        .status strong { font-weight: 500; color: var(--accent); }
+
+        /* BEFORE / AFTER */
+        .compare {
+            padding: 4rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .lane + .lane { margin-top: 2rem; }
+        .lane-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 0.75rem;
+        }
+        .flow {
+            list-style: none;
+            display: flex;
+            gap: 1.6rem;
+        }
+        .flow li {
+            position: relative;
+            flex: 1;
+            border: 1px solid var(--border);
+            background: var(--white);
+            padding: 0.7rem 0.8rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .flow li small { display: block; font-size: 0.74rem; color: var(--text-muted); margin-top: 0.2rem; }
+        .flow li + li::before {
+            content: '→';
+            position: absolute;
+            left: -1.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-light);
+        }
+        .flow li.lib { border-color: var(--match); background: var(--match-bg); }
+        .flow li.ai { border-style: dashed; border-color: var(--accent-light); }
+        .flow .who {
+            display: block;
+            font-size: 0.58rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.15rem;
+        }
+        .flow li.lib .who { color: var(--match); }
+        .compare-note { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); max-width: 720px; }
+
+        /* THREE STATES */
+        .states { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0 0 2.5rem; }
+        .state { border: 1px solid var(--border); background: var(--white); padding: 1rem 1.1rem; }
+        .state h4 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; margin-bottom: 0.3rem; }
+        .state p { font-size: 0.82rem; color: var(--text-muted); }
+        .state.covered { border-color: var(--match); background: var(--match-bg); }
+        .state.covered h4 { color: var(--match); }
+        .state.nocode { border-style: dashed; border-color: var(--match); }
+        .state.excluded h4 { color: var(--miss); }
 
         .stage-num {
             font-family: var(--font-display);
@@ -324,13 +410,14 @@
         .estimand-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
         }
 
         .field {
             background: var(--white);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
             padding: 0.9rem 1rem;
             min-width: 0;
         }
@@ -345,8 +432,23 @@
             display: flex;
             justify-content: space-between;
             gap: 0.5rem;
+            align-items: center;
         }
+        .field-name span { margin-right: auto; }
 
+        .field.is-new .field-name::before {
+            content: 'new';
+            font-family: var(--font-body);
+            font-size: 0.58rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent-light);
+            padding: 0 0.3rem;
+            order: 2;
+            align-self: center;
+            margin-left: auto;
+        }
         .field.typed .field-name::after {
             content: 'gate';
             font-family: var(--font-body);
@@ -357,6 +459,7 @@
             border: 1px solid var(--match);
             padding: 0 0.3rem;
             align-self: center;
+            order: 3;
         }
 
         .field-value { font-size: 0.9rem; margin-top: 0.2rem; overflow-wrap: anywhere; }
@@ -543,9 +646,16 @@
         }
 
         @media (max-width: 900px) {
-            .stages { grid-template-columns: 1fr 1fr; }
-            .stage:nth-child(3)::before { display: none; }
-            .rules, .alts { grid-template-columns: 1fr; }
+            .stages { grid-template-columns: 1fr; gap: 1.75rem; }
+            .stage + .stage::before {
+                content: '↓';
+                left: 50%;
+                top: -1.45rem;
+                transform: translateX(-50%);
+            }
+            .flow { flex-direction: column; }
+            .flow li + li::before { content: '↓'; left: 50%; top: -1.2rem; transform: translateX(-50%); }
+            .rules, .alts, .states { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
@@ -553,15 +663,7 @@
             .nav-back .long { display: none; }
             .nav-back .short { display: inline; }
             .page-header { padding: 8rem 1rem 3rem; }
-            .pipeline, .section, .closing { padding: 3.5rem 1rem; }
-            .stages { grid-template-columns: 1fr; gap: 1.75rem; }
-            .stage + .stage::before, .stage:nth-child(3)::before {
-                display: block;
-                content: '↓';
-                left: 50%;
-                top: -1.45rem;
-                transform: translateX(-50%);
-            }
+            .pipeline, .section, .closing, .compare { padding: 3.5rem 1rem; }
             .rec-analysis { grid-template-columns: 1fr; }
             .funnel svg.wide { display: none; }
             .funnel svg.tall { display: block; }
@@ -595,16 +697,45 @@
 
     <header class="page-header">
         <div class="container">
-            <p class="eyebrow">Ask Mallard · How a plan is generated</p>
+            <p class="eyebrow">Ask Mallard · The revised planning approach</p>
             <h1>From a question<br>to a <em>design</em></h1>
-            <p class="page-header-desc">Mallard does not start by choosing a study design. It first pins down exactly what the question is asking for, as a typed estimand. It then looks for methods in a tested code library that can estimate that quantity. Only after that does it recommend a design and set out the alternatives.</p>
+            <p class="page-header-desc">Mallard is changing the order in which it builds a study plan. It will first pin down exactly what the question is asking for, as a typed estimand, and confirm it with the clinician. Rules and a tested code library then decide which analysis methods are valid. Only after that does the AI recommend a design and set out the alternatives.</p>
+            <p class="status"><strong>Proposed approach, in development.</strong> This page follows Mallard's draft design-selector and code-library specs from 23 September 2026, which have not been adopted yet. Today, Mallard's AI drafts the design first, and the code library is consulted only when the plan's code is written.</p>
         </div>
     </header>
+
+    <!-- BEFORE / AFTER -->
+    <section class="compare" aria-labelledby="compare-title">
+        <div class="container">
+            <p class="eyebrow" id="compare-title">What changes</p>
+            <div class="lane">
+                <p class="lane-label">Today</p>
+                <ol class="flow">
+                    <li>Question</li>
+                    <li class="ai"><span class="who">AI</span>Design brief<small>design, estimand and alternatives in one pass</small></li>
+                    <li>Reviewer and code checks</li>
+                    <li>Study, analysis, write-up</li>
+                    <li class="lib"><span class="who">Library</span>Code step<small>one exact match, or “not covered”</small></li>
+                </ol>
+            </div>
+            <div class="lane">
+                <p class="lane-label">Proposed</p>
+                <ol class="flow">
+                    <li>Question</li>
+                    <li>Typed estimand</li>
+                    <li>Clinician confirms</li>
+                    <li class="lib"><span class="who">Rules + library</span>Valid methods<small>covered, valid without code, or excluded</small></li>
+                    <li class="ai"><span class="who">AI</span>Design + alternatives<small>proposed inside the valid set</small></li>
+                </ol>
+            </div>
+            <p class="compare-note">Two things move. The code library goes from the last step to the middle, where it helps decide what is valid. The AI's design choice moves from the start to the end, so it works within limits the rules have already set. Dashed boxes are written by the AI; green boxes use the code library.</p>
+        </div>
+    </section>
 
     <!-- OVERVIEW -->
     <section class="pipeline" aria-labelledby="overview-title">
         <div class="container">
-            <p class="eyebrow" id="overview-title">The four stages</p>
+            <p class="eyebrow" id="overview-title">The five stages</p>
             <ol class="stages">
                 <li class="stage reveal">
                     <span class="stage-num">01</span>
@@ -619,27 +750,35 @@
                     <h3>Estimand</h3>
                     <dl class="stage-io">
                         <dt>In</dt><dd>The question</dd>
-                        <dt>Out</dt><dd>Typed fields for target, population, contrast, outcome, measure, horizon and structure</dd>
-                    </dl>
-                </li>
-                <li class="stage is-match reveal">
-                    <span class="stage-num">03</span>
-                    <h3>Library match</h3>
-                    <dl class="stage-io">
-                        <dt>In</dt><dd>The typed estimand, plus 86 tested methods</dd>
-                        <dt>Out</dt><dd>The methods that match every typed field, or an explicit “not covered”</dd>
+                        <dt>Out</dt><dd>Typed fields, including two new facts: sampling structure and mediation</dd>
                     </dl>
                 </li>
                 <li class="stage reveal">
+                    <span class="stage-num">03</span>
+                    <h3>Confirm <span class="tag">Planned</span></h3>
+                    <dl class="stage-io">
+                        <dt>In</dt><dd>The typed estimand</dd>
+                        <dt>Out</dt><dd>Target and assignment confirmed by the clinician before any design</dd>
+                    </dl>
+                </li>
+                <li class="stage is-match reveal">
                     <span class="stage-num">04</span>
+                    <h3>Valid methods</h3>
+                    <dl class="stage-io">
+                        <dt>In</dt><dd>The confirmed estimand, rules, and a registry of methods</dd>
+                        <dt>Out</dt><dd>Each method marked covered, valid without code, or excluded</dd>
+                    </dl>
+                </li>
+                <li class="stage reveal">
+                    <span class="stage-num">05</span>
                     <h3>Design + alternatives</h3>
                     <dl class="stage-io">
-                        <dt>In</dt><dd>The estimand and the matched methods</dd>
-                        <dt>Out</dt><dd>A recommended design with checks, plus up to three alternatives ranked by evidence</dd>
+                        <dt>In</dt><dd>The estimand and the valid methods</dd>
+                        <dt>Out</dt><dd>A recommended design with checks, plus up to three alternatives</dd>
                     </dl>
                 </li>
             </ol>
-            <p class="pipeline-note">The sections below follow one question through each stage. It is Mallard's own worked example, and the library results are read from the code library's metadata.</p>
+            <p class="pipeline-note">The sections below follow one question through each stage. It is Mallard's own worked example. The library results are read from the metadata of the 72 entries the app ships today; the rules, registry and confirmation step are proposed.</p>
         </div>
     </section>
 
@@ -672,41 +811,81 @@
             <p class="lede">The question is turned into an estimand: the exact quantity the study will estimate. Every field has a fixed vocabulary, so the rest of the pipeline can check it with code instead of interpreting prose.</p>
 
             <div class="estimand-grid reveal" role="list" aria-label="Typed estimand for the readmission question">
-                <div class="field typed" role="listitem"><div class="field-name">target</div><div class="field-value">associational</div></div>
-                <div class="field" role="listitem"><div class="field-name">population</div><div class="field-value">Adults discharged alive from hospital medicine</div></div>
-                <div class="field" role="listitem"><div class="field-name">exposure</div><div class="field-value">Follow-up scheduled before discharge</div></div>
-                <div class="field" role="listitem"><div class="field-name">comparison</div><div class="field-value">No appointment scheduled before discharge</div></div>
-                <div class="field" role="listitem"><div class="field-name">outcome</div><div class="field-value">Time to first unplanned readmission</div></div>
-                <div class="field typed" role="listitem"><div class="field-name">outcomeType</div><div class="field-value">timeToEvent</div></div>
-                <div class="field typed" role="listitem"><div class="field-name">summaryMeasure</div><div class="field-value">hazardRatio</div></div>
-                <div class="field" role="listitem"><div class="field-name">timeHorizon</div><div class="field-value">30 days after discharge</div></div>
-                <div class="field" role="listitem"><div class="field-name">framing</div><div class="field-value">estimation</div></div>
-                <div class="field" role="listitem"><div class="field-name">assignment</div><div class="field-value">nonrandomized</div></div>
-                <div class="field typed" role="listitem"><div class="field-name">clustered</div><div class="field-value">false → independent sampling</div></div>
-                <div class="field typed" role="listitem"><div class="field-name">repeatedMeasures</div><div class="field-value">false</div></div>
-                <div class="field typed" role="listitem"><div class="field-name">competingEvents</div><div class="field-value">true (death within 30 days)</div></div>
+                <div class="field typed" role="listitem"><div class="field-name"><span>target</span></div><div class="field-value">associational</div></div>
+                <div class="field" role="listitem"><div class="field-name"><span>population</span></div><div class="field-value">Adults discharged alive from hospital medicine</div></div>
+                <div class="field" role="listitem"><div class="field-name"><span>exposure</span></div><div class="field-value">Follow-up scheduled before discharge</div></div>
+                <div class="field" role="listitem"><div class="field-name"><span>comparison</span></div><div class="field-value">No appointment scheduled before discharge</div></div>
+                <div class="field" role="listitem"><div class="field-name"><span>outcome</span></div><div class="field-value">Time to first unplanned readmission</div></div>
+                <div class="field typed" role="listitem"><div class="field-name"><span>outcomeType</span></div><div class="field-value">timeToEvent</div></div>
+                <div class="field typed" role="listitem"><div class="field-name"><span>summaryMeasure</span></div><div class="field-value">hazardRatio</div></div>
+                <div class="field" role="listitem"><div class="field-name"><span>timeHorizon</span></div><div class="field-value">30 days after discharge</div></div>
+                <div class="field" role="listitem"><div class="field-name"><span>framing</span></div><div class="field-value">estimation</div></div>
+                <div class="field" role="listitem"><div class="field-name"><span>assignment</span></div><div class="field-value">nonrandomized</div></div>
+                <div class="field typed is-new" role="listitem"><div class="field-name"><span>samplingStructure</span></div><div class="field-value">independent</div></div>
+                <div class="field typed" role="listitem"><div class="field-name"><span>repeatedMeasures</span></div><div class="field-value">false</div></div>
+                <div class="field typed" role="listitem"><div class="field-name"><span>competingEvents</span></div><div class="field-value">true (death within 30 days)</div></div>
+                <div class="field is-new" role="listitem"><div class="field-name"><span>mediation</span></div><div class="field-value">false</div></div>
             </div>
-            <p class="legend-line"><span class="swatch" aria-hidden="true"></span>Shaded fields feed the library gate in stage 03. Each must match the method's metadata exactly.</p>
+            <p class="legend-line"><span class="swatch" aria-hidden="true"></span>Shaded fields are checked against each method in stage 04. Fields tagged “new” are proposed additions to the intake.</p>
 
             <p class="sub-label">Why this comes first</p>
             <ul class="bullets">
                 <li><strong>Competing events</strong> is a single yes/no field, and it changes which methods are valid. A standard Cox model treats a patient who died as simply censored, which overstates readmission.</li>
-                <li>Later steps check themselves against this estimand. If the analysis plan drifts on the target, the summary measure, the framing, the assignment or the clustering, the drift is flagged and the sample size is withheld.</li>
+                <li><strong>Sampling structure</strong> replaces a yes/no “clustered” flag with the code library's own four values: independent, clustered, matched, or survey. That lets the rules see matched case-control and survey designs, which they cannot today.</li>
+                <li><strong>Mediation</strong> records whether the question asks how much of an effect works through a middle step. Today that is detected by searching the plan's wording.</li>
             </ul>
         </div>
     </section>
 
-    <!-- 03 LIBRARY MATCH -->
+    <!-- 03 CONFIRM -->
     <section class="section">
         <div class="container">
             <div class="section-header">
                 <span class="section-number">03</span>
-                <h2 class="section-title">Match the code library</h2>
+                <h2 class="section-title">Confirm the estimand <span class="tag">Planned</span></h2>
             </div>
-            <p class="lede">The Mallard code library has 86 analysis methods. Each has R and/or Python code that has been run against a fixture dataset and checked against expected output. Each method also declares the estimands it is valid for. A method qualifies only if it accepts every gate field of the estimand.</p>
+            <p class="lede">Every later rule trusts the typed facts, so a mistyped question gets confidently wrong answers. Before any design is proposed, the clinician confirms the facts that matter most.</p>
+            <ul class="bullets">
+                <li><strong>Target</strong>: is this about a cause, an association, a description, or a prediction? <em>Here: an association.</em></li>
+                <li><strong>Assignment</strong>: was the comparison randomized? <em>Here: no, the groups are observed.</em></li>
+                <li><em>Will each case be matched to specific controls (for example, on age and sex)?</em> <em>Here: no.</em></li>
+                <li><em>Is part of the question how much of the effect works through a middle step?</em> <em>Here: no.</em></li>
+            </ul>
+            <p class="sub-label">Why it is needed</p>
+            <ul class="bullets">
+                <li>In Mallard's 23 September audit, 7 of 28 plans typed a fact differently from the reference answer, and one randomized trial was typed as descriptive three times.</li>
+                <li>“Not sure yet” is an allowed answer; it simply stops the related rules from firing. A value read from the description is shown back to the clinician, never applied silently.</li>
+                <li>This step is named in the draft spec but will be specified separately, so its exact form may change.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 04 VALID METHODS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Find the valid methods</h2>
+            </div>
+            <p class="lede">Rules on the typed facts decide which analysis methods are valid. A registry lists every method, whether or not code exists for it. The code library is the verified part of that registry: its entries have R and/or Python code that has been run on a test dataset and checked against expected output. Each method ends up in one of three states.</p>
+
+            <div class="states">
+                <div class="state covered reveal">
+                    <h4>Covered</h4>
+                    <p>Valid for this estimand, with verified code in the library.</p>
+                </div>
+                <div class="state nocode reveal">
+                    <h4>Valid, no verified code</h4>
+                    <p>Valid, but the library has no entry yet. The plan can still use it, and says the code is not verified.</p>
+                </div>
+                <div class="state excluded reveal">
+                    <h4>Excluded</h4>
+                    <p>A rule names why it does not fit, e.g. “a randomized comparison is not sized as a single group”.</p>
+                </div>
+            </div>
 
             <figure class="funnel reveal">
-                <svg class="wide" viewBox="0 0 900 250" role="img" aria-label="Of 86 library methods, 6 estimate a hazard ratio for a time-to-event outcome, and 2 of those also handle competing events with independent sampling: cause-specific Cox and Fine-Gray.">
+                <svg class="wide" viewBox="0 0 900 250" role="img" aria-label="Of the 72 library methods the app ships, 4 estimate a hazard ratio for a time-to-event outcome, and 2 of those also handle competing events with independent sampling: cause-specific Cox and Fine-Gray.">
                     <defs>
                         <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                             <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
@@ -714,16 +893,16 @@
                     </defs>
                     <!-- stage blocks: widths proportional-ish, centered vertically at y=125 -->
                     <rect x="10" y="20" width="220" height="210" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
-                    <text x="120" y="112" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="56" fill="currentColor">86</text>
-                    <text x="120" y="142" text-anchor="middle" font-size="13" fill="currentColor" fill-opacity="0.7">methods in the library</text>
-                    <text x="120" y="162" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.55">78 run in both R and Python</text>
+                    <text x="120" y="112" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="56" fill="currentColor">72</text>
+                    <text x="120" y="142" text-anchor="middle" font-size="13" fill="currentColor" fill-opacity="0.7">library methods in the app</text>
+                    <text x="120" y="162" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.55">86 upstream, 14 held back</text>
 
                     <line x1="236" y1="125" x2="330" y2="125" stroke="currentColor" stroke-opacity="0.5" marker-end="url(#fa)"/>
                     <text x="283" y="108" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.7">timeToEvent</text>
                     <text x="283" y="148" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity="0.7">hazardRatio</text>
 
                     <rect x="336" y="55" width="200" height="140" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
-                    <text x="436" y="120" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="48" fill="currentColor">6</text>
+                    <text x="436" y="120" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="48" fill="currentColor">4</text>
                     <text x="436" y="148" text-anchor="middle" font-size="13" fill="currentColor" fill-opacity="0.7">hazard-ratio models</text>
 
                     <line x1="542" y1="125" x2="636" y2="125" stroke="#0f6b5b" stroke-width="1.5" marker-end="url(#fa)" style="color:#0f6b5b"/>
@@ -734,22 +913,22 @@
                     <text x="680" y="140" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="48" fill="#1f8f78">2</text>
                     <text x="712" y="112" font-size="13" fill="currentColor">cause-specific Cox</text>
                     <text x="712" y="132" font-size="13" fill="currentColor">Fine-Gray</text>
-                    <text x="712" y="152" font-size="11" fill="currentColor" fill-opacity="0.6">exact matches</text>
+                    <text x="712" y="152" font-size="11" fill="currentColor" fill-opacity="0.6">covered</text>
                 </svg>
-                <svg class="tall" viewBox="0 0 360 430" role="img" aria-label="Of 86 library methods, 6 estimate a hazard ratio for a time-to-event outcome, and 2 of those also handle competing events with independent sampling: cause-specific Cox and Fine-Gray.">
+                <svg class="tall" viewBox="0 0 360 430" role="img" aria-label="Of the 72 library methods the app ships, 4 estimate a hazard ratio for a time-to-event outcome, and 2 of those also handle competing events with independent sampling: cause-specific Cox and Fine-Gray.">
                     <defs>
                         <marker id="fb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                             <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
                         </marker>
                     </defs>
                     <rect x="20" y="10" width="320" height="110" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
-                    <text x="180" y="65" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="46" fill="currentColor">86</text>
-                    <text x="180" y="90" text-anchor="middle" font-size="14" fill="currentColor" fill-opacity="0.7">methods in the library</text>
-                    <text x="180" y="108" text-anchor="middle" font-size="12" fill="currentColor" fill-opacity="0.55">78 run in both R and Python</text>
+                    <text x="180" y="65" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="46" fill="currentColor">72</text>
+                    <text x="180" y="90" text-anchor="middle" font-size="14" fill="currentColor" fill-opacity="0.7">library methods in the app</text>
+                    <text x="180" y="108" text-anchor="middle" font-size="12" fill="currentColor" fill-opacity="0.55">86 upstream, 14 held back</text>
                     <line x1="180" y1="124" x2="180" y2="166" stroke="currentColor" stroke-opacity="0.5" marker-end="url(#fb)"/>
                     <text x="192" y="150" font-size="12" fill="currentColor" fill-opacity="0.7">timeToEvent · hazardRatio</text>
                     <rect x="60" y="172" width="240" height="90" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
-                    <text x="180" y="220" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="42" fill="currentColor">6</text>
+                    <text x="180" y="220" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="42" fill="currentColor">4</text>
                     <text x="180" y="246" text-anchor="middle" font-size="14" fill="currentColor" fill-opacity="0.7">hazard-ratio models</text>
                     <line x1="180" y1="266" x2="180" y2="308" stroke="#1f8f78" stroke-width="1.5" marker-end="url(#fb)"/>
                     <text x="192" y="284" font-size="12" fill="currentColor" fill-opacity="0.7">competingEvents</text>
@@ -758,12 +937,12 @@
                     <text x="85" y="382" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="46" fill="#1f8f78">2</text>
                     <text x="120" y="352" font-size="14" fill="currentColor">cause-specific Cox</text>
                     <text x="120" y="374" font-size="14" fill="currentColor">Fine-Gray</text>
-                    <text x="120" y="396" font-size="12" fill="currentColor" fill-opacity="0.6">exact matches</text>
+                    <text x="120" y="396" font-size="12" fill="currentColor" fill-opacity="0.6">covered</text>
                 </svg>
-                <figcaption>Each arrow applies one set of gate fields. The first two fields narrow 86 methods to 6. The competing-events and sampling fields remove the standard Cox model and the case-cohort, nested case-control and time-varying variants, leaving 2.</figcaption>
+                <figcaption>Each arrow applies typed fields from the estimand. Outcome type and summary measure narrow 72 methods to 4 hazard-ratio models. Competing events then removes the standard Cox model and its time-varying variant, leaving 2 covered methods.</figcaption>
             </figure>
 
-            <p class="sub-label">The gate, field by field</p>
+            <p class="sub-label">The check, field by field</p>
             <div class="table-wrap reveal">
                 <table class="gate">
                     <caption class="sr-only" style="position:absolute;left:-9999px">Library entries checked against the estimand's gate fields</caption>
@@ -782,12 +961,12 @@
                         <tr class="pass">
                             <th scope="row">Cause-specific Cox<br><code>cause-specific-cox</code></th>
                             <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td>
-                            <td><span class="verdict ok">Match · R + Py</span></td>
+                            <td><span class="verdict ok">Covered · R + Py</span></td>
                         </tr>
                         <tr class="pass">
                             <th scope="row">Fine-Gray subdistribution<br><code>fine-gray-subdistribution</code></th>
                             <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td>
-                            <td><span class="verdict ok">Match · R</span></td>
+                            <td><span class="verdict ok">Covered · R</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Cox proportional hazards<br><code>cox-proportional-hazards</code></th>
@@ -795,8 +974,8 @@
                             <td><span class="verdict no">Excluded</span></td>
                         </tr>
                         <tr>
-                            <th scope="row">Case-cohort weighted Cox<br><code>case-cohort-weighted-cox</code></th>
-                            <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="no">✗<small>false only</small></td><td class="no">✗<small>caseCohort</small></td>
+                            <th scope="row">Cox with time-varying exposure<br><code>cox-time-varying-exposure</code></th>
+                            <td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="no">✗<small>false only</small></td><td class="ok">✓</td>
                             <td><span class="verdict no">Excluded</span></td>
                         </tr>
                         <tr>
@@ -810,29 +989,29 @@
 
             <div class="rules">
                 <div class="rule reveal">
+                    <h4>Rules decide validity</h4>
+                    <p>Whether a method is valid depends on rules over typed facts, not on whether code exists. In the audit, when the library had 16 entries, only 17 of 75 plans matched any of them, and most of the rest were sound plans.</p>
+                </div>
+                <div class="rule reveal">
                     <h4>Exact, not nearest</h4>
-                    <p>Methods are not scored or ranked. An entry either accepts every gate field or it is excluded. The Cox model matches on four of five fields and is still excluded.</p>
+                    <p>Methods are not scored or ranked. The standard Cox model agrees on four of five fields and is still excluded, because it treats a death as an ordinary dropout.</p>
                 </div>
                 <div class="rule reveal">
-                    <h4>No substitution</h4>
-                    <p>If no entry qualifies, the plan says the method is <em>not covered</em>. It does not quietly swap in a different estimand that the library happens to have.</p>
-                </div>
-                <div class="rule reveal">
-                    <h4>Code with provenance</h4>
-                    <p>The code shown is taken from the matched entry at a pinned library commit. It is labelled as adapted and not yet run on the user's data.</p>
+                    <h4>Nothing is substituted</h4>
+                    <p>When no covered method fits, the plan says so. It does not quietly swap in a method for a different estimand that the library happens to have.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 04 DESIGN -->
+    <!-- 05 DESIGN -->
     <section class="section alt">
         <div class="container">
             <div class="section-header">
-                <span class="section-number">04</span>
+                <span class="section-number">05</span>
                 <h2 class="section-title">Recommend a design, show the alternatives</h2>
             </div>
-            <p class="lede">The recommended design is the one that answers the estimand with the data the clinician already has, using a method the library covers. The alternatives are shown next to it, each with what it costs and what it would let you claim.</p>
+            <p class="lede">The AI proposes the recommended design and the alternatives, working inside the set of valid methods. The rules narrow the analyses and sample-size methods; choosing among designs is still the AI's job. Each option shows what it costs and what it would let you claim.</p>
 
             <article class="recommended reveal">
                 <span class="badge rec">Recommended</span><span class="badge">Adjusted association</span><span class="badge">Months</span><span class="badge">Existing records</span>
@@ -840,11 +1019,11 @@
                 <p>The exposure is already recorded at discharge, and the outcome is recorded in the same system. A cohort can therefore answer the question from data that already exists, without paying to collect new data. Because the two groups differ systematically, the analysis adjusts for confounders, and the result is reported as an association rather than an effect.</p>
                 <dl class="rec-analysis">
                     <div>
-                        <dt>Primary analysis · from the library</dt>
+                        <dt>Primary analysis · covered</dt>
                         <dd>Cause-specific Cox regression, reported as an adjusted hazard ratio</dd>
                     </div>
                     <div>
-                        <dt>Companion · from the library</dt>
+                        <dt>Companion · covered</dt>
                         <dd>Fine-Gray regression for the cumulative incidence of readmission</dd>
                     </div>
                 </dl>
@@ -923,7 +1102,8 @@
     <section class="closing">
         <div class="container">
             <p class="eyebrow">Why this order</p>
-            <p>Choosing a design before the estimand is fixed invites a familiar method that answers a slightly different question. Here, a standard Cox model would ignore deaths. Fixing the estimand first, and accepting only exact library matches, means the recommended design comes with analysis code that has been run and checked for the question actually asked.</p>
+            <p>When the design is chosen before the estimand is fixed, it is easy to reach for a familiar method that answers a slightly different question. Here, a standard Cox model would ignore deaths. Fixing and confirming the estimand first, and letting rules decide what is valid before the AI chooses, means the recommended design comes with methods that fit the question actually asked, and says plainly where verified code exists.</p>
+            <p>Status: the rules, the method registry, the two new intake facts and the confirmation step are drafts awaiting the owner's decisions. The first step proposed is to run the rules alongside plan generation, without changing any plan, until an audit shows they never exclude a method that expert reviewers accept.</p>
             <p>Worked example adapted from <a href="https://github.com/Ask-Mallard/mallard-code-library" target="_blank" rel="noopener">Ask Mallard</a> and its open code library.</p>
         </div>
     </section>
